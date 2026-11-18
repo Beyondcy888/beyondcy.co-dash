@@ -107,7 +107,42 @@
       border-top: 1px solid var(--line);
       padding-top: 20px;
     }
+    /* MAINTENANCE: the check holds the page back for at most ~1.2 s, so it doesn't flash */
+    html.is-checking body > header,
+    html.is-checking body > main,
+    html.is-checking body > footer { visibility: hidden; }
+    html.is-maintenance body { overflow: hidden; }
+    #maintenance {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      overflow-y: auto;
+      background: var(--ink);
+    }
+    #maintenance[hidden] { display: none; }
+    /* a copy on this computer (localhost) ignores maintenance and shows this note instead */
+    .maintenance-note {
+      position: fixed;
+      left: 50%;
+      bottom: 16px;
+      z-index: 5;
+      transform: translateX(-50%);
+      max-width: calc(100% - 32px);
+      padding: 8px 14px;
+      border: 1px solid #c2459a;
+      border-radius: 999px;
+      background: #2a1d2c;
+      color: var(--text);
+      font-size: 0.8125rem;
+      text-align: center;
+    }
   </style>
+  <script>
+    // MAINTENANCE: hold the page back while the switch is read, at most 1.2 s. The failsafe is here,
+    // not in the module below, so the page still shows if that script can't load.
+    document.documentElement.classList.add('is-checking');
+    setTimeout(function () { document.documentElement.classList.remove('is-checking'); }, 1200);
+  </script>
 </head>
 <body>
   <header><img class="logo" src="logo-beyondcy.png" alt="Beyondcy" width="143" height="30"></header>
@@ -136,5 +171,144 @@
   </main>
 
   <footer>© 2026 Beyondcy Kreatif Global</footer>
+
+  <!--
+    MAINTENANCE (tracker update v4, file 10 §3): while Dashboard maintenance is on, the maintenance
+    page covers this page with a countdown, and it reopens by itself. Checked on load and every
+    60 seconds. A failed check (offline, error) never locks anyone out: the normal page stays.
+    No "Sign in" here: this site has no logins yet.
+    maintenance/maintenance.js and maintenance/maintenance.css are byte-identical copies of the
+    tracker repo's src/maintenance/page/ files: change them there and copy both here (keep them identical).
+  -->
+  <div id="maintenance" hidden></div>
+  <script type="module">
+    import { mountMaintenance } from './maintenance/maintenance.js';
+
+    // Reading the maintenance switch is allowed for everyone; the publishable key is public by design.
+    const SUPABASE_URL = 'https://hedinugzhxyssgxlkzfj.supabase.co';
+    const PUBLISHABLE_KEY = 'sb_publishable_oe7glxmiVsOINldgECGvTg_0YADRGsk';
+    const CHECK_EVERY = 60 * 1000;
+    const FINISHING_RECHECK = 15 * 1000;
+    const BACK_MS = 1600;
+    const html = document.documentElement;
+    const root = document.getElementById('maintenance');
+    // A copy on this computer (localhost) ignores maintenance, so the agent doing the updates can
+    // still open and check the page while it's on. Add ?maintenance-check to the address to see
+    // the maintenance page locally. The live site is never on localhost.
+    const LOCAL =
+      ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname) && !new URLSearchParams(location.search).has('maintenance-check');
+    let page = null;
+    let finishingTimer = null;
+    let css = null;
+    let note = null;
+
+    function localNote(on) {
+      if (on && !note) {
+        note = document.createElement('p');
+        note.className = 'maintenance-note';
+        note.setAttribute('role', 'status');
+        note.textContent = 'Dashboard maintenance is on: everyone else sees the maintenance page. This copy on your computer ignores it.';
+        document.body.append(note);
+      } else if (!on && note) {
+        note.remove();
+        note = null;
+      }
+    }
+
+    const ready = () => html.classList.remove('is-checking'); // (the <head> script also does this after 1.2 s)
+
+    const loadCss = () =>
+      (css ??= new Promise((resolve) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'maintenance/maintenance.css';
+        link.onload = link.onerror = () => resolve();
+        document.head.append(link);
+      }));
+
+    /** The dashboard's row, null when there is none, undefined when the check failed. */
+    async function read() {
+      try {
+        const r = await fetch(`${SUPABASE_URL}/rest/v1/site_maintenance?site=eq.dashboard&select=is_on,ends_at`, {
+          headers: { apikey: PUBLISHABLE_KEY },
+          cache: 'no-store',
+        });
+        if (!r.ok) return undefined;
+        const rows = await r.json();
+        return rows[0] ?? null;
+      } catch {
+        return undefined;
+      }
+    }
+
+    const active = (row) => Boolean(row && row.is_on && row.ends_at && Date.now() < Date.parse(row.ends_at));
+
+    async function show(row) {
+      clearTimeout(finishingTimer);
+      await loadCss();
+      if (page) {
+        page.update({ endsAt: row.ends_at, state: 'counting' });
+        return;
+      }
+      root.hidden = false;
+      html.classList.add('is-maintenance');
+      page = mountMaintenance(root, {
+        site: 'Dashboard',
+        endsAt: row.ends_at,
+        state: 'counting',
+        logoSrc: 'logo-beyondcy.png',
+        signIn: null,
+        onCountdownEnd: countdownEnded,
+      });
+      document.title = 'Maintenance · Beyondcy Dashboard';
+    }
+
+    function hide() {
+      clearTimeout(finishingTimer);
+      if (!page) return;
+      page.update({ state: 'back' }); // "We're back!" for a moment
+      setTimeout(() => {
+        page?.destroy();
+        page = null;
+        root.hidden = true;
+        html.classList.remove('is-maintenance');
+        document.title = 'Beyondcy Dashboard';
+      }, BACK_MS);
+    }
+
+    /** The countdown reached 0: off → back; still on (the timer runs once a minute) → "Finishing up…". */
+    async function countdownEnded() {
+      const row = await read();
+      if (row === undefined) return; // the next check decides
+      if (active(row)) return show(row); // time was added
+      if (row && row.is_on) {
+        page?.update({ state: 'finishing' });
+        clearTimeout(finishingTimer);
+        finishingTimer = setTimeout(countdownEnded, FINISHING_RECHECK);
+        return;
+      }
+      hide();
+    }
+
+    async function check() {
+      const row = await read();
+      if (row !== undefined && LOCAL) {
+        localNote(active(row));
+      } else if (row !== undefined) {
+        if (active(row)) await show(row);
+        else if (page) {
+          if (row && row.is_on) page.update({ state: 'finishing' });
+          else hide();
+        }
+      }
+      ready();
+    }
+
+    check();
+    setInterval(check, CHECK_EVERY);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') check();
+    });
+  </script>
 </body>
 </html>
