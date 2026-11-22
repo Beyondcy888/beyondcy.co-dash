@@ -1,0 +1,365 @@
+/* 4 · Audience: values from design-reference/Audience.dc.html */
+
+/* This mock's tokens(): its card, line and track values differ slightly from tokens.css
+   (and it adds dimBar), so the page uses its own, for everything below the greeting. */
+:root,
+:root[data-theme="dark"] {
+  --au-card: linear-gradient(160deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.035) 100%);
+  --au-card-border: rgba(255, 255, 255, 0.15);
+  --au-card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 18px 40px -18px rgba(0, 0, 0, 0.6);
+  --au-line: rgba(255, 255, 255, 0.07);
+  --au-track: rgba(255, 255, 255, 0.08);
+  --au-dim-bar: rgba(255, 255, 255, 0.22);
+}
+
+:root[data-theme="light"] {
+  --au-card: linear-gradient(160deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.58) 100%);
+  --au-card-border: #ffffff;
+  --au-card-shadow: inset 0 1px 0 #ffffff, 0 16px 36px -18px rgba(64, 48, 120, 0.28);
+  --au-line: rgba(27, 24, 48, 0.08);
+  --au-track: rgba(27, 24, 48, 0.07);
+  --au-dim-bar: rgba(132, 114, 182, 0.28);
+}
+
+/* no box of its own: the period row, the panel and the footer stay items of .b360-wrap */
+.au-page {
+  display: contents;
+  --card: var(--au-card);
+  --card-border: var(--au-card-border);
+  --card-shadow: var(--au-card-shadow);
+  --line: var(--au-line);
+  --track: var(--au-track);
+}
+
+@media (min-width: 641px) {
+  .au-panel {
+    gap: 22px;
+  }
+}
+
+/* the platform switch: All platforms · Instagram · TikTok */
+.au-plat {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--input);
+  border: 1px solid var(--input-border);
+}
+
+.au-plat button {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tab-off-fg);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.au-plat button[aria-pressed="true"] {
+  background: var(--tab-on-bg);
+  color: var(--tab-on-fg);
+  box-shadow: var(--tab-on-shadow);
+}
+
+.au-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.au-charts {
+  align-items: stretch;
+}
+
+/* the four stat cards */
+.au-stat {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 22px;
+  min-height: 160px;
+  padding: 22px 24px;
+}
+
+.au-stat.is-good {
+  --au-glow: var(--glow-good);
+}
+
+.au-stat.is-brand {
+  --au-glow: var(--glow-brand);
+}
+
+.au-stat-glow {
+  width: 220px;
+  height: 220px;
+  right: -100px;
+  top: -120px;
+  background: radial-gradient(closest-side, var(--au-glow), transparent);
+}
+
+.au-stat-label {
+  position: relative;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.au-stat-body {
+  position: relative;
+}
+
+.au-stat-value {
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.au-stat-sub {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--faint);
+}
+
+/* the chart cards. In the mock their flex-basis is a content-box size
+   (340px / 300px + 22px padding + 1px border each side); the app is border-box. */
+.au-chart {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  overflow: visible;
+}
+
+.au-chart h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.au-bars {
+  flex: 1 1 386px;
+  gap: 16px;
+}
+
+.au-bars h3 {
+  margin-bottom: 2px;
+}
+
+.au-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.au-bar-row > span {
+  flex: none;
+}
+
+.au-age {
+  width: 50px;
+  color: var(--muted);
+}
+
+.au-rank {
+  width: 20px;
+  color: var(--faint);
+  font-weight: 600;
+}
+
+.au-city {
+  width: 82px;
+}
+
+.au-track {
+  flex: 1 1 auto;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--track);
+}
+
+.au-track > div {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--au-dim-bar);
+}
+
+.au-bar-row.is-top .au-track > div {
+  background: linear-gradient(90deg, #7fae3e, #b9e086);
+  box-shadow: 0 0 14px rgba(158, 205, 90, 0.55);
+}
+
+.au-cities .au-track > div,
+.au-cities .au-bar-row.is-top .au-track > div {
+  background: linear-gradient(90deg, #6f5ea8, #a291d8);
+}
+
+.au-cities .au-bar-row.is-top .au-track > div {
+  box-shadow: 0 0 14px rgba(132, 114, 182, 0.6);
+}
+
+.au-bar-row strong {
+  flex: none;
+  width: 50px;
+  text-align: right;
+  font-weight: 600;
+}
+
+/* gender + new followers per week */
+.au-gender {
+  flex: 1 1 346px;
+  gap: 18px;
+}
+
+.au-split {
+  display: flex;
+  gap: 4px;
+  height: 14px;
+}
+
+.au-split > div {
+  border-radius: 999px;
+}
+
+.au-split .is-female {
+  background: linear-gradient(90deg, #7fae3e, #b9e086);
+  box-shadow: 0 0 14px rgba(158, 205, 90, 0.5);
+}
+
+.au-split .is-male {
+  flex: 1 1 auto;
+  background: linear-gradient(90deg, #6f5ea8, #a291d8);
+  box-shadow: 0 0 14px rgba(132, 114, 182, 0.5);
+}
+
+.au-split-legend {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.au-split-legend .is-end {
+  text-align: right;
+}
+
+.au-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.au-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.au-dot.is-female {
+  background: #9ecd5a;
+}
+
+.au-dot.is-male {
+  background: #8472b6;
+}
+
+.au-share {
+  margin-top: 6px;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.au-weekly {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.au-weekly h3 {
+  margin-bottom: 14px;
+}
+
+.au-weeks {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 120px;
+}
+
+.au-week {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.au-week strong {
+  font-weight: 600;
+}
+
+.au-week span {
+  color: var(--muted);
+}
+
+.au-week-bar {
+  width: 100%;
+  max-width: 42px;
+  border-radius: 12px 12px 6px 6px;
+  background: var(--au-dim-bar);
+}
+
+.au-week.is-top .au-week-bar {
+  background: linear-gradient(180deg, #c3ea8e, #7fae3e);
+  box-shadow: 0 0 18px rgba(158, 205, 90, 0.5);
+}
+
+/* the account team's note */
+.au-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 26px;
+}
+
+.au-note-glow {
+  width: 420px;
+  height: 420px;
+  left: -160px;
+  top: -220px;
+  background: radial-gradient(closest-side, var(--glow-brand), transparent);
+}
+
+.au-note-head {
+  position: relative;
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.au-note-head h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.au-note-head span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.au-note p {
+  position: relative;
+  flex: 1 1 420px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-soft);
+}

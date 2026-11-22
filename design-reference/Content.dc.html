@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Beyond 360 Dashboard · Content Performance</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+.b360-mob{display:none}
+@media (max-width: 640px){
+.b360-wrap{padding:14px 12px 48px !important;gap:22px !important}
+.b360-nav{padding:8px 8px 8px 18px !important;border-radius:26px !important;row-gap:8px !important}
+.b360-tabs{order:3;width:100%;flex-wrap:nowrap !important;overflow-x:auto;scrollbar-width:none}
+.b360-tabs a{flex:none}
+.b360-name{display:none !important}
+.b360-h1{font-size:27px !important}
+section[aria-labelledby]{padding:18px !important;border-radius:24px !important;gap:18px !important}
+.b360-big{font-size:42px !important}
+.b360-mid{font-size:32px !important}
+.b360-tgt{flex-basis:40% !important;padding:14px 16px !important}
+.b360-desk{display:none !important}
+.b360-mob{display:flex !important}
+.b360-tabs,.b360-acct{display:none !important}
+.b360-burger{display:inline-flex !important}
+}
+.b360-burger{display:none}
+</style>
+</helmet>
+<div style="position: relative; overflow: hidden; width: 100%; min-height: 100vh; background: {{t.bg}}; color: {{t.text}}; font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+  <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none">
+    <div style="position: absolute; width: 1200px; height: 1000px; right: -420px; top: -480px; border-radius: 50%; background: radial-gradient(closest-side, {{t.glowA}}, transparent)"></div>
+    <div style="position: absolute; width: 1600px; height: 1300px; left: -820px; top: 360px; border-radius: 50%; background: radial-gradient(closest-side, {{t.glowB}}, transparent)"></div>
+    <div style="position: absolute; width: 1200px; height: 1100px; right: -420px; top: 1300px; border-radius: 50%; background: radial-gradient(closest-side, {{t.glowC}}, transparent)"></div>
+    <div style="position: absolute; width: 1500px; height: 1200px; left: -700px; top: 2300px; border-radius: 50%; background: radial-gradient(closest-side, {{t.glowB}}, transparent)"></div>
+  </div>
+
+  <div class="b360-wrap" style="position: relative; max-width: 1240px; margin: 0 auto; padding: 28px 24px 64px; box-sizing: border-box; display: flex; flex-direction: column; gap: 32px">
+
+    <header class="b360-nav" style="position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; min-height: 60px; padding: 9px 10px 9px 30px; box-sizing: border-box; border-radius: 32px; background: {{t.nav}}; border: 1px solid {{t.navBorder}}; box-shadow: {{t.navShadow}}; backdrop-filter: blur(20px) saturate(150%); -webkit-backdrop-filter: blur(20px) saturate(150%); font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+      <a href="#" aria-label="Beyondcy home" style="display: block; line-height: 0">
+        <sc-if value="{{isDark}}" hint-placeholder-val="{{true}}"><img src="/_blob/904b4135f5d736c2edae5c07615cfa81" alt="Beyondcy" style="display: block; width: 100px; height: auto"></sc-if>
+        <sc-if value="{{isLight}}" hint-placeholder-val="{{false}}"><img src="/_blob/9ea8c66a8ea76fce59c3bb48c2bfe581" alt="Beyondcy" style="display: block; width: 112px; height: auto"></sc-if>
+      </a>
+      <nav class="b360-tabs" aria-label="Dashboard sections" style="display: flex; flex-wrap: wrap; gap: 4px">
+        <sc-for list="{{tabs}}" as="tab" hint-placeholder-count="5">
+          <a href="{{tab.href}}" aria-current="{{tab.current}}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; box-sizing: border-box; border-radius: 999px; font-size: 14px; font-weight: 500; text-decoration: none; background: {{tab.bg}}; color: {{tab.fg}}; box-shadow: {{tab.shadow}}">{{tab.label}}</a>
+        </sc-for>
+      </nav>
+      <div class="b360-acct" style="display: flex; align-items: center; gap: 12px">
+        <span class="b360-name" style="display: inline-flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500">
+          <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(140deg, #a291d8, #6a58a3); color: #ffffff; font-size: 13px; font-weight: 700; box-shadow: inset 0 1px 0 rgba(255,255,255,0.35)">N</span>
+          [Name]
+        </span>
+        <a href="#" style="display: inline-flex; align-items: center; height: 40px; padding: 0 18px; border-radius: 999px; background: {{t.btn}}; color: {{t.btnText}}; font-size: 14px; font-weight: 600; text-decoration: none; box-shadow: inset 0 1px 0 rgba(255,255,255,0.28)">Log out</a>
+      </div>
+      <button type="button" class="b360-burger" onClick="{{toggleNav}}" aria-expanded="{{navOpen}}" aria-label="Menu" style="align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; padding: 0; background: transparent; cursor: pointer">
+        <span aria-hidden="true" style="display: flex; flex-direction: column; gap: 5px; width: 28px">
+          <span style="display: block; height: 3px; border-radius: 3px; background: {{t.burger}}"></span>
+          <span style="display: block; height: 3px; border-radius: 3px; background: {{t.burger}}"></span>
+          <span style="display: block; height: 3px; border-radius: 3px; background: {{t.burger}}"></span>
+        </span>
+      </button>
+      <sc-if value="{{navOpen}}" hint-placeholder-val="{{false}}">
+        <div style="position: absolute; right: 0; top: calc(100% + 10px); width: 250px; padding: 8px; box-sizing: border-box; border-radius: 22px; background: {{t.popover}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.popShadow}}; backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); display: flex; flex-direction: column; gap: 2px">
+          <nav aria-label="Dashboard menu" style="display: flex; flex-direction: column; gap: 2px">
+            <sc-for list="{{tabs}}" as="tab" hint-placeholder-count="5">
+              <a href="{{tab.href}}" aria-current="{{tab.current}}" style="display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 14px; font-size: 15px; font-weight: 500; text-decoration: none; background: {{tab.bg}}; color: {{tab.fg}}">{{tab.label}}</a>
+            </sc-for>
+          </nav>
+          <div style="height: 1px; margin: 6px 8px; background: {{t.line}}"></div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 6px 10px; font-size: 14px; font-weight: 500">
+            <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(140deg, #a291d8, #6a58a3); color: #ffffff; font-size: 13px; font-weight: 700">N</span>
+            [Name]
+          </div>
+          <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 4px; border-radius: 14px; background: {{t.btn}}; color: {{t.btnText}}; font-size: 14px; font-weight: 600; text-decoration: none; box-shadow: inset 0 1px 0 rgba(255,255,255,0.28)">Log out</a>
+        </div>
+      </sc-if>
+    </header>
+
+    <section style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 28px 0 0; text-align: center">
+            <h1 class="b360-h1" style="margin: 0; max-width: 820px; font-size: 40px; line-height: 1.18; font-weight: 700; letter-spacing: -0.02em">Hi [Name], Welcome to <span style="background: {{t.gradient}}; -webkit-background-clip: text; background-clip: text; color: transparent">Beyond 360° Dashboard!</span></h1>
+      <p style="margin: 0; max-width: 540px; font-size: 16px; line-height: 1.65; color: {{t.muted}}">The Beyond 360 Dashboard is where strategy meets execution. Review, refine, and approve your content in a single, streamlined workspace.</p>
+    </section>
+
+    <div style="position: relative; z-index: 6; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+      <p style="margin: 0; font-size: 14px; color: {{t.muted}}">Showing <strong style="color: {{t.text}}; font-weight: 600">{{rangeLabel}}</strong> · compared with the previous period</p>
+      <div style="position: relative; display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+        <button type="button" onClick="{{toggleDate}}" aria-expanded="{{dateOpen}}" aria-haspopup="dialog" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border-radius: 999px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); color: {{t.text}}; font: 500 14px 'Plus Jakarta Sans', system-ui, sans-serif; cursor: pointer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+          {{rangeLabel}}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <a href="#" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; box-sizing: border-box; border-radius: 999px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); color: {{t.text}}; font-size: 14px; font-weight: 500; text-decoration: none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg>
+          Download PDF
+        </a>
+        <sc-if value="{{dateOpen}}" hint-placeholder-val="{{false}}">
+          <div role="dialog" aria-label="Choose date period" style="position: absolute; right: 0; top: calc(100% + 10px); width: 300px; padding: 10px; box-sizing: border-box; border-radius: 22px; background: {{t.popover}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.popShadow}}; backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); display: flex; flex-direction: column; gap: 2px">
+            <sc-for list="{{presets}}" as="p" hint-placeholder-count="5">
+              <button type="button" onClick="{{p.pick}}" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 0 14px; border: 0; border-radius: 14px; background: {{p.bg}}; color: {{p.fg}}; font: 500 14px 'Plus Jakarta Sans', system-ui, sans-serif; text-align: left; cursor: pointer">
+                <span>{{p.label}}</span>
+                <span style="font-size: 12px; color: {{t.faint}}">{{p.hint}}</span>
+              </button>
+            </sc-for>
+            <sc-if value="{{isCustom}}" hint-placeholder-val="{{false}}">
+              <div style="margin: 6px 2px 2px; padding: 12px 4px 4px; border-top: 1px solid {{t.line}}">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 13px; font-weight: 600"><span>{{cal.month}}</span><span style="font-size: 12px; font-weight: 500; color: {{t.muted}}">{{cal.hint}}</span></div>
+                <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; text-align: center">
+                  <sc-for list="{{cal.heads}}" as="h" hint-placeholder-count="7"><span style="padding: 4px 0; font-size: 11px; font-weight: 500; color: {{t.faint}}">{{h}}</span></sc-for>
+                  <sc-for list="{{cal.cells}}" as="cd" hint-placeholder-count="35">
+                    <button type="button" onClick="{{cd.pick}}" disabled="{{cd.blank}}" style="height: 32px; padding: 0; border: 0; border-radius: 10px; background: {{cd.bg}}; color: {{cd.fg}}; font: {{cd.weight}} 12px 'Plus Jakarta Sans', system-ui, sans-serif; visibility: {{cd.vis}}; cursor: pointer">{{cd.n}}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <button type="button" onClick="{{toggleDate}}" style="margin-top: 6px; min-height: 44px; border: 0; border-radius: 14px; background: {{t.primary}}; color: {{t.primaryText}}; font: 600 14px 'Plus Jakarta Sans', system-ui, sans-serif; box-shadow: inset 0 1px 0 rgba(255,255,255,0.3); cursor: pointer">Apply</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+
+    <section aria-labelledby="plat" style="display: flex; flex-direction: column; gap: 22px; padding: 28px; border-radius: 30px; background: {{t.panel}}; border: 1px solid {{t.panelBorder}}; box-shadow: {{t.panelShadow}}; backdrop-filter: blur(28px) saturate(140%); -webkit-backdrop-filter: blur(28px) saturate(140%)">
+      <div>
+        <h2 id="plat" style="margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em">Platform Performance</h2>
+        <p style="margin: 6px 0 0; font-size: 14px; color: {{t.muted}}">All organic results for the period, split by platform.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+        <div style="flex: 3 1 520px; min-width: 0; overflow-x: auto; padding: 6px 22px 10px; border-radius: 22px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}">
+          <table style="width: 100%; min-width: 460px; border-collapse: collapse; font: 14px 'Plus Jakarta Sans', system-ui, sans-serif">
+            <thead>
+              <tr>
+                <th scope="col" style="padding: 16px 0 12px; text-align: left; font-size: 12px; font-weight: 500; color: {{t.faint}}; border-bottom: 1px solid {{t.line}}">Metric</th>
+                <th scope="col" style="padding: 16px 0 12px; text-align: right; font-size: 12px; font-weight: 500; color: {{t.faint}}; border-bottom: 1px solid {{t.line}}">Instagram</th>
+                <th scope="col" style="padding: 16px 0 12px; text-align: right; font-size: 12px; font-weight: 500; color: {{t.faint}}; border-bottom: 1px solid {{t.line}}">TikTok</th>
+                <th scope="col" style="padding: 16px 0 12px; text-align: right; font-size: 12px; font-weight: 500; color: {{t.faint}}; border-bottom: 1px solid {{t.line}}">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{platRows}}" as="r" hint-placeholder-count="13">
+                <tr>
+                  <th scope="row" style="padding: 12px 0; text-align: left; font-weight: {{r.weight}}; color: {{t.textSoft}}; border-bottom: 1px solid {{t.line}}">{{r.m}}</th>
+                  <td style="padding: 12px 0; text-align: right; font-variant-numeric: tabular-nums; color: {{t.textSoft}}; border-bottom: 1px solid {{t.line}}">{{r.ig}}</td>
+                  <td style="padding: 12px 0; text-align: right; font-variant-numeric: tabular-nums; color: {{t.textSoft}}; border-bottom: 1px solid {{t.line}}">{{r.tt}}</td>
+                  <td style="padding: 12px 0; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; border-bottom: 1px solid {{t.line}}">{{r.total}}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <div style="flex: 2 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+          <sc-for list="{{donuts}}" as="dn" hint-placeholder-count="2">
+            <article style="flex: 1 1 auto; display: flex; flex-direction: column; gap: 18px; padding: 22px; border-radius: 22px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}">
+              <h3 style="margin: 0; font-size: 15px; font-weight: 600">{{dn.title}}</h3>
+              <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap">
+                <div style="position: relative; flex: none; width: 156px; height: 156px">
+                  <div role="img" aria-label="{{dn.aria}}" style="position: absolute; inset: 0; border-radius: 50%; background: {{dn.gradient}}; -webkit-mask: radial-gradient(circle, transparent 62%, #000 63%); mask: radial-gradient(circle, transparent 62%, #000 63%); filter: drop-shadow(0 0 14px {{dn.glow}})"></div>
+                  <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+                    <strong style="font-size: 22px; font-weight: 600; letter-spacing: -0.02em">{{dn.center}}</strong>
+                    <span style="font: 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.muted}}">{{dn.centerLabel}}</span>
+                  </div>
+                </div>
+                <ul style="flex: 1 1 140px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font: 13px 'Plus Jakarta Sans', system-ui, sans-serif">
+                  <sc-for list="{{dn.legend}}" as="lg" hint-placeholder-count="4">
+                    <li style="display: flex; align-items: center; gap: 10px">
+                      <span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 50%; background: {{lg.color}}; box-shadow: 0 0 8px {{lg.color}}"></span>
+                      <span style="flex: 1 1 auto; color: {{t.textSoft}}">{{lg.label}}</span>
+                      <strong style="font-weight: 600; font-variant-numeric: tabular-nums">{{lg.value}}</strong>
+                    </li>
+                  </sc-for>
+                </ul>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="top" style="display: flex; flex-direction: column; gap: 22px; padding: 28px; border-radius: 30px; background: {{t.panel}}; border: 1px solid {{t.panelBorder}}; box-shadow: {{t.panelShadow}}; backdrop-filter: blur(28px) saturate(140%); -webkit-backdrop-filter: blur(28px) saturate(140%)">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+        <div>
+          <h2 id="top" style="margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em">Top Performing Content</h2>
+          <p style="margin: 6px 0 0; font-size: 14px; color: {{t.muted}}">The 5 best posts of the period, ranked by the metric you choose.</p>
+        </div>
+        <div role="group" aria-label="Rank by" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 999px; background: {{t.input}}; border: 1px solid {{t.inputBorder}}">
+          <sc-for list="{{rankTabs}}" as="rt" hint-placeholder-count="4">
+            <button type="button" onClick="{{rt.pick}}" aria-pressed="{{rt.on}}" style="min-height: 38px; padding: 0 16px; border: 0; border-radius: 999px; background: {{rt.bg}}; color: {{rt.fg}}; box-shadow: {{rt.shadow}}; font: 500 13px 'Plus Jakarta Sans', system-ui, sans-serif; cursor: pointer">{{rt.label}}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px">
+        <sc-for list="{{top}}" as="p" hint-placeholder-count="5">
+          <article style="flex: 0 0 calc((100% - 56px) / 5); min-width: 200px; box-sizing: border-box; scroll-snap-align: start; display: flex; flex-direction: column; gap: 14px; padding: 12px 12px 18px; border-radius: 22px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}">
+            <div aria-hidden="true" style="position: relative; height: 168px; border-radius: 16px; background: {{p.thumb}}; overflow: hidden">
+              <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.45))"></div>
+              <span style="position: absolute; left: 14px; bottom: 8px; font-size: 52px; line-height: 1; font-weight: 700; letter-spacing: -0.04em; color: rgba(255,255,255,0.92)">{{p.rank}}</span>
+              <span style="position: absolute; right: 10px; top: 10px; padding: 5px 11px; border-radius: 999px; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #ffffff; font: 600 11px 'Plus Jakarta Sans', system-ui, sans-serif">{{p.format}}</span>
+            </div>
+            <div style="padding: 0 6px">
+              <h3 style="margin: 0; font-size: 15px; line-height: 1.35; font-weight: 600">{{p.title}}</h3>
+              <p style="margin: 4px 0 0; font: 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.muted}}">{{p.platform}} · {{p.date}}</p>
+            </div>
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 0 6px; padding-top: 12px; border-top: 1px solid {{t.line}}">
+              <span style="font: 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.muted}}">{{rankLabel}}</span>
+              <strong style="font-size: 22px; font-weight: 600; letter-spacing: -0.02em">{{p.metric}}</strong>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section aria-labelledby="ana" style="display: flex; flex-direction: column; gap: 22px; padding: 28px; border-radius: 30px; background: {{t.panel}}; border: 1px solid {{t.panelBorder}}; box-shadow: {{t.panelShadow}}; backdrop-filter: blur(28px) saturate(140%); -webkit-backdrop-filter: blur(28px) saturate(140%)">
+      <div>
+        <h2 id="ana" style="margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em">Content Analysis</h2>
+        <p style="margin: 6px 0 0; font-size: 14px; color: {{t.muted}}">Which formats and posting days work best. Averages per post.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+        <article style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: 22px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}">
+          <h3 style="margin: 0 0 4px; font-size: 15px; font-weight: 600">Performance by format</h3>
+          <sc-for list="{{formats}}" as="f" hint-placeholder-count="3">
+            <div style="display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 16px; background: {{t.inset}}">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+                <strong style="font-size: 15px; font-weight: 600">{{f.name}} <span style="font: 400 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.muted}}">· {{f.posts}} posts</span></strong>
+                <span style="font: 600 13px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{f.erColor}}">ER {{f.er}}</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; font: 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.muted}}">
+                <span style="flex: none; width: 70px">Avg reach</span>
+                <div aria-hidden="true" style="flex: 1 1 auto; height: 4px; border-radius: 999px; background: {{t.track}}"><div style="height: 4px; width: {{f.reachPct}}; border-radius: 999px; background: {{t.good}}; box-shadow: 0 0 10px {{t.good}}"></div></div>
+                <strong style="flex: none; width: 48px; text-align: right; font-weight: 600; color: {{t.text}}">{{f.reach}}</strong>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px; font: 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.muted}}">
+                <span style="flex: none; width: 70px">Avg views</span>
+                <div aria-hidden="true" style="flex: 1 1 auto; height: 4px; border-radius: 999px; background: {{t.track}}"><div style="height: 4px; width: {{f.viewsPct}}; border-radius: 999px; background: {{t.brand}}; box-shadow: 0 0 10px {{t.brand}}"></div></div>
+                <strong style="flex: none; width: 48px; text-align: right; font-weight: 600; color: {{t.text}}">{{f.views}}</strong>
+              </div>
+            </div>
+          </sc-for>
+        </article>
+        <article style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 16px; padding: 22px; border-radius: 22px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+            <h3 style="margin: 0; font-size: 15px; font-weight: 600">Avg reach by posting day</h3>
+            <span style="font: 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.muted}}">Best: Thursday for reach · Saturday for engagement</span>
+          </div>
+          <div role="img" aria-label="Average reach per post by day: Sunday 488, Monday 131, Tuesday 411, Wednesday 188, Thursday 1.017, Friday 486, Saturday 744" style="flex: 1 1 auto; display: flex; align-items: flex-end; gap: 12px; min-height: 250px; padding-top: 8px">
+            <sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+              <div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+                <span style="font-size: 12px; font-weight: 600; color: {{d.labelColor}}">{{d.reach}}</span>
+                <div style="width: 100%; max-width: 46px; height: {{d.h}}; border-radius: 12px 12px 6px 6px; background: {{d.fill}}; border: 1px solid {{d.edge}}; box-shadow: {{d.glow}}; box-sizing: border-box"></div>
+                <span style="font-size: 12px; font-weight: 500">{{d.day}}</span>
+                <span style="font-size: 11px; color: {{t.faint}}">{{d.eng}} eng</span>
+              </div>
+            </sc-for>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="db" style="display: flex; flex-direction: column; gap: 22px; padding: 28px; border-radius: 30px; background: {{t.panel}}; border: 1px solid {{t.panelBorder}}; box-shadow: {{t.panelShadow}}; backdrop-filter: blur(28px) saturate(140%); -webkit-backdrop-filter: blur(28px) saturate(140%)">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+        <div>
+          <h2 id="db" style="margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em">Content Database</h2>
+          <p style="margin: 6px 0 0; font-size: 14px; color: {{t.muted}}">Every post of the period with its full results.</p>
+        </div>
+        <label style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid {{t.inputBorder}}; background: {{t.input}}; color: {{t.muted}}; font: 13px 'Plus Jakarta Sans', system-ui, sans-serif">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+          <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search content</span>
+          <input type="search" placeholder="Search content" style="width: 180px; border: 0; outline: none; background: transparent; color: {{t.text}}; font: 13px 'Plus Jakarta Sans', system-ui, sans-serif">
+        </label>
+      </div>
+      <div style="overflow-x: auto; padding: 4px 22px 10px; border-radius: 22px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}">
+        <table style="width: 100%; min-width: 1080px; border-collapse: collapse; font: 13px 'Plus Jakarta Sans', system-ui, sans-serif">
+          <thead>
+            <tr>
+              <sc-for list="{{dbCols}}" as="col" hint-placeholder-count="13">
+                <th scope="col" style="padding: 16px 8px 12px; text-align: {{col.align}}; font-size: 12px; font-weight: 500; color: {{t.faint}}; white-space: nowrap; border-bottom: 1px solid {{t.line}}">{{col.label}}</th>
+              </sc-for>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{dbRows}}" as="r" hint-placeholder-count="10">
+              <tr>
+                <td style="padding: 13px 8px; white-space: nowrap; color: {{t.muted}}; border-bottom: 1px solid {{t.line}}">{{r.date}}</td>
+                <td style="padding: 13px 8px; white-space: nowrap; border-bottom: 1px solid {{t.line}}"><span style="display: inline-flex; align-items: center; gap: 7px"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: {{r.pColor}}"></span>{{r.platform}}</span></td>
+                <td style="padding: 13px 8px; font-weight: 500; border-bottom: 1px solid {{t.line}}">{{r.title}}</td>
+                <td style="padding: 13px 8px; white-space: nowrap; color: {{t.muted}}; border-bottom: 1px solid {{t.line}}">{{r.format}}</td>
+                <td style="padding: 13px 8px; text-align: right; font-variant-numeric: tabular-nums; border-bottom: 1px solid {{t.line}}">{{r.views}}</td>
+                <td style="padding: 13px 8px; text-align: right; font-variant-numeric: tabular-nums; border-bottom: 1px solid {{t.line}}">{{r.reach}}</td>
+                <td style="padding: 13px 8px; text-align: right; font-variant-numeric: tabular-nums; color: {{t.textSoft}}; border-bottom: 1px solid {{t.line}}">{{r.likes}}</td>
+                <td style="padding: 13px 8px; text-align: right; font-variant-numeric: tabular-nums; color: {{t.textSoft}}; border-bottom: 1px solid {{t.line}}">{{r.comments}}</td>
+                <td style="padding: 13px 8px; text-align: right; font-variant-numeric: tabular-nums; color: {{t.textSoft}}; border-bottom: 1px solid {{t.line}}">{{r.shares}}</td>
+                <td style="padding: 13px 8px; text-align: right; font-variant-numeric: tabular-nums; color: {{t.textSoft}}; border-bottom: 1px solid {{t.line}}">{{r.saves}}</td>
+                <td style="padding: 13px 8px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; border-bottom: 1px solid {{t.line}}">{{r.eng}}</td>
+                <td style="padding: 13px 8px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: {{t.up}}; border-bottom: 1px solid {{t.line}}">{{r.er}}</td>
+                <td style="padding: 13px 8px; text-align: right; font-variant-numeric: tabular-nums; color: {{t.muted}}; border-bottom: 1px solid {{t.line}}">{{r.watch}}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 16px 8px 8px; font: 13px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.muted}}">
+          <span>Showing 10 of 44 posts</span>
+          <button type="button" style="min-height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid {{t.inputBorder}}; background: {{t.input}}; color: {{t.text}}; font: 500 13px 'Plus Jakarta Sans', system-ui, sans-serif; cursor: pointer">Load more</button>
+        </div>
+      </div>
+    </section>
+
+    <footer style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; font: 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.faint}}; text-align: center">
+      <sc-if value="{{isLight}}" hint-placeholder-val="{{false}}"><img src="/_blob/2154d771730db51143d12d693366504e" alt="" style="display: block; width: 36px; height: auto"></sc-if>
+      <span>Beyond 360° Dashboard by Beyondcy · Synced from Meta and TikTok · Last sync 18 Nov 2026, 09:30 WIB</span>
+    </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":3300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { dateOpen: false, preset: 'last', topBy: 'reach', rs: 6, re: 20 };
+  }
+  isLight() { return (this.props.theme ?? 'dark') === 'light'; }
+  tokens() {
+    if (this.isLight()) {
+      return {
+        bg: '#f3f3f5', text: '#1b1830', textSoft: '#36324a', muted: '#5a5670', faint: '#646080',
+        panel: 'linear-gradient(150deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.42) 60%, rgba(255,255,255,0.6) 100%)',
+        panelBorder: 'rgba(255,255,255,0.95)', panelShadow: 'inset 0 1px 0 #ffffff, 0 40px 80px -36px rgba(64,48,120,0.30)',
+        card: 'linear-gradient(160deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.58) 100%)',
+        cardBorder: '#ffffff', cardShadow: 'inset 0 1px 0 #ffffff, 0 16px 36px -18px rgba(64,48,120,0.28)',
+        line: 'rgba(27,24,48,0.08)', track: 'rgba(27,24,48,0.09)', inset: 'rgba(132,114,182,0.08)',
+        nav: 'rgba(255,255,255,0.8)', navBorder: '#ffffff', navShadow: 'inset 0 1px 0 #ffffff, 0 18px 40px -24px rgba(40,30,80,0.28)',
+        tabOnBg: 'rgba(132,114,182,0.13)', tabOnFg: '#3f3375', tabOnShadow: 'inset 0 0 0 1px rgba(132,114,182,0.22)', tabOffFg: '#55516a', tabDot: '#8472b6', burger: '#6e6a84',
+        input: 'rgba(255,255,255,0.8)', inputBorder: 'rgba(27,24,48,0.12)',
+        popover: 'rgba(255,255,255,0.92)', popShadow: '0 30px 60px -20px rgba(64,48,120,0.35)', selBg: 'rgba(132,114,182,0.14)',
+        up: '#3d6b12', down: '#b23a24', good: '#8fc04a', bad: '#e0806c', brand: '#8472b6', tiktok: '#1b1830',
+        barDim: 'linear-gradient(180deg, rgba(132,114,182,0.30), rgba(132,114,182,0.12))', barEdge: 'rgba(255,255,255,0.9)',
+        btn: '#6f5ea8', btnText: '#ffffff', primary: '#7564ad', primaryText: '#ffffff',
+        thumbs: ['linear-gradient(150deg, rgba(158,205,90,0.65), rgba(132,114,182,0.6))', 'linear-gradient(150deg, rgba(132,114,182,0.7), rgba(127,178,229,0.55))', 'linear-gradient(150deg, rgba(240,162,74,0.55), rgba(132,114,182,0.6))', 'linear-gradient(150deg, rgba(127,178,229,0.6), rgba(158,205,90,0.55))', 'linear-gradient(150deg, rgba(132,114,182,0.55), rgba(240,162,74,0.45))'],
+        glowA: 'rgba(132,114,182,0.30)', glowB: 'rgba(158,205,90,0.38)', glowC: 'rgba(170,150,230,0.20)',
+        gradient: 'linear-gradient(90deg, #5b8a22 0%, #6c6f9a 50%, #6a58a3 100%)'
+      };
+    }
+    return {
+      bg: '#070708', text: '#ffffff', textSoft: 'rgba(255,255,255,0.82)', muted: 'rgba(255,255,255,0.62)', faint: 'rgba(255,255,255,0.5)',
+      panel: 'linear-gradient(150deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.025) 55%, rgba(255,255,255,0.05) 100%)',
+      panelBorder: 'rgba(255,255,255,0.12)', panelShadow: 'inset 0 1px 0 rgba(255,255,255,0.14), 0 40px 80px -30px rgba(0,0,0,0.7)',
+      card: 'linear-gradient(160deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.035) 100%)',
+      cardBorder: 'rgba(255,255,255,0.15)', cardShadow: 'inset 0 1px 0 rgba(255,255,255,0.2), 0 18px 40px -18px rgba(0,0,0,0.6)',
+      line: 'rgba(255,255,255,0.07)', track: 'rgba(255,255,255,0.10)', inset: 'rgba(255,255,255,0.05)',
+      nav: 'rgba(14,14,16,0.5)', navBorder: 'rgba(255,255,255,0.28)', navShadow: 'inset 0 1px 0 rgba(255,255,255,0.10)',
+      tabOnBg: 'rgba(255,255,255,0.13)', tabOnFg: '#ffffff', tabOnShadow: 'inset 0 1px 0 rgba(255,255,255,0.25), 0 0 0 1px rgba(255,255,255,0.10)', tabOffFg: 'rgba(255,255,255,0.66)', tabDot: '#9ecd5a', burger: 'rgba(255,255,255,0.5)',
+      input: 'rgba(255,255,255,0.07)', inputBorder: 'rgba(255,255,255,0.16)',
+      popover: 'rgba(26,26,30,0.86)', popShadow: '0 30px 60px -20px rgba(0,0,0,0.8)', selBg: 'rgba(255,255,255,0.10)',
+      up: '#b6e07c', down: '#ff9c8c', good: '#9ecd5a', bad: '#e98b7a', brand: '#9a88cf', tiktok: '#f2f2f2',
+      barDim: 'linear-gradient(180deg, rgba(255,255,255,0.20), rgba(255,255,255,0.05))', barEdge: 'rgba(255,255,255,0.16)',
+      btn: '#799c46', btnText: '#ffffff', primary: '#9ecd5a', primaryText: '#121311',
+      thumbs: ['linear-gradient(150deg, rgba(158,205,90,0.55), rgba(132,114,182,0.5))', 'linear-gradient(150deg, rgba(132,114,182,0.6), rgba(127,178,229,0.4))', 'linear-gradient(150deg, rgba(240,162,74,0.45), rgba(132,114,182,0.5))', 'linear-gradient(150deg, rgba(127,178,229,0.5), rgba(158,205,90,0.4))', 'linear-gradient(150deg, rgba(132,114,182,0.5), rgba(240,162,74,0.35))'],
+      glowA: 'rgba(132,114,182,0.55)', glowB: 'rgba(158,205,90,0.42)', glowC: 'rgba(104,109,175,0.40)',
+      gradient: 'linear-gradient(90deg, #9ecd5a 0%, #849e86 50%, #6c73b2 100%)'
+    };
+  }
+  chrome(active) {
+    const t = this.tokens();
+    const light = this.isLight();
+    const sfx = light ? 'Light' : '';
+    const defs = [['Overview', 'Overview'], ['Calendar', 'Content Calendar'], ['Content', 'Content Performance'], ['Audience', 'Audience'], ['PaidAds', 'Paid Ads']];
+    const tabs = defs.map(([id, label]) => {
+      const on = id === active;
+      return { label, href: id + sfx + '.dc.html', current: on ? 'page' : 'false', bg: on ? t.tabOnBg : 'transparent', fg: on ? t.tabOnFg : t.tabOffFg, shadow: on ? t.tabOnShadow : 'none', dot: on ? t.tabDot : 'transparent' };
+    });
+    const list = [
+      { id: 'this', label: 'This month', hint: '1 – 18 Nov', range: '1 – 18 Nov 2026' },
+      { id: 'last', label: 'Last month', hint: 'Oct 2026', range: '1 – 31 Oct 2026' },
+      { id: 'q', label: 'Last 3 months', hint: 'Aug – Oct', range: '1 Aug – 31 Oct 2026' },
+      { id: 'ytd', label: 'Year to date', hint: 'Jan – Nov', range: '1 Jan – 18 Nov 2026' },
+      { id: 'custom', label: 'Custom range', hint: 'Pick dates', range: 'Custom range' }
+    ];
+    const presets = list.map((p) => {
+      const on = p.id === this.state.preset;
+      return { ...p, bg: on ? t.selBg : 'transparent', fg: on ? t.text : t.muted, pick: () => this.setState({ preset: p.id }) };
+    });
+    const cur = list.find((p) => p.id === this.state.preset) || list[1];
+    const m = active === 'Calendar' ? { name: 'November 2026', lead: 0, days: 30, short: 'Nov' } : { name: 'October 2026', lead: 4, days: 31, short: 'Oct' };
+    const rs = this.state.rs, re = this.state.re;
+    const calCells = [];
+    for (let i = 0; i < m.lead; i++) calCells.push({ n: '', blank: true, vis: 'hidden', bg: 'transparent', fg: t.text, weight: 400, pick: () => {} });
+    for (let d = 1; d <= m.days; d++) {
+      const edge = d === rs || d === re;
+      const inside = re != null && d > rs && d < re;
+      calCells.push({
+        n: d, blank: false, vis: 'visible', weight: edge ? 600 : 400,
+        bg: edge ? t.primary : (inside ? t.selBg : 'transparent'), fg: edge ? t.primaryText : t.text,
+        pick: () => {
+          if (this.state.re != null) this.setState({ rs: d, re: null });
+          else if (d < this.state.rs) this.setState({ rs: d, re: this.state.rs });
+          else this.setState({ re: d });
+        }
+      });
+    }
+    const cal = { month: m.name, hint: re != null ? rs + ' – ' + re + ' ' + m.short : 'Pick an end date', heads: ['S', 'M', 'T', 'W', 'T', 'F', 'S'], cells: calCells };
+    const customOn = this.state.preset === 'custom';
+    return {
+      t, tabs, presets, isLight: light, isDark: !light, cal,
+      navOpen: !!this.state.navOpen, toggleNav: () => this.setState({ navOpen: !this.state.navOpen }),
+      rangeLabel: customOn ? (re != null ? rs + ' – ' + re + ' ' + m.short + ' 2026' : 'Custom range') : cur.range,
+      dateOpen: this.state.dateOpen,
+      isCustom: this.state.preset === 'custom',
+      toggleDate: () => this.setState({ dateOpen: !this.state.dateOpen })
+    };
+  }
+  renderVals() {
+    const c = this.chrome('Content');
+    const t = c.t;
+    const fmt = (n) => n.toLocaleString('id-ID');
+    const pct = (n) => n.toFixed(2).replace('.', ',') + '%';
+
+    const platRows = [
+      ['Followers', '3.226', '6', '3.232'],
+      ['Follower growth', '+269', '+5', '+274'],
+      ['Reach', '62.000', '–', '62.000'],
+      ['Content interactions', '3.900', '–', '3.900'],
+      ['Views', '87.900', '1.300', '89.200'],
+      ['Likes', '2.510', '57', '2.567'],
+      ['Comments', '30', '–', '30'],
+      ['Shares', '77', '5', '82'],
+      ['Saves', '114', '–', '114'],
+      ['Engagement', '2.731', '62', '2.793', true],
+      ['Engagement rate', '4,40%', '4,77%', '4,50%', true],
+      ['Profile visits', '363', '22', '385'],
+      ['Content published', '38', '6', '44']
+    ].map((r) => ({ m: r[0], ig: r[1], tt: r[2], total: r[3], weight: r[4] ? 600 : 400 }));
+
+    const donuts = [
+      { title: 'Views share by platform', aria: 'Views share: Instagram 98,5%, TikTok 1,5%', center: '89.200', centerLabel: 'total views', glow: 'rgba(158,205,90,0.45)',
+        gradient: 'conic-gradient(' + t.good + ' 0 98.5%, ' + t.brand + ' 98.5% 100%)',
+        legend: [{ label: 'Instagram', value: '98,5%', color: t.good }, { label: 'TikTok', value: '1,5%', color: t.brand }] },
+      { title: 'Engagement mix', aria: 'Engagement mix: likes 2.567, comments 30, shares 82, saves 114', center: '2.793', centerLabel: 'engagements', glow: 'rgba(132,114,182,0.45)',
+        gradient: 'conic-gradient(' + t.good + ' 0 91.9%, #f0a24a 91.9% 93%, #7fb2e5 93% 95.9%, ' + t.brand + ' 95.9% 100%)',
+        legend: [{ label: 'Likes', value: '2.567', color: t.good }, { label: 'Comments', value: '30', color: '#f0a24a' }, { label: 'Shares', value: '82', color: '#7fb2e5' }, { label: 'Saves', value: '114', color: t.brand }] }
+    ];
+
+    const posts = [
+      { date: '03 Oct 2026', platform: 'Instagram', title: '5 Indonesian films to watch', format: 'Carousel', views: 2050, reach: 1650, likes: 101, comments: 3, shares: 12, saves: 35, watch: '–' },
+      { date: '08 Oct 2026', platform: 'Instagram', title: 'Quiz: guess the scene', format: 'Carousel', views: 2900, reach: 2100, likes: 120, comments: 9, shares: 8, saves: 20, watch: '–' },
+      { date: '12 Oct 2026', platform: 'Instagram', title: 'News: Rumah Singgah', format: 'Reels', views: 6200, reach: 4900, likes: 96, comments: 4, shares: 6, saves: 4, watch: '14s' },
+      { date: '14 Oct 2026', platform: 'Instagram', title: 'Film School 101: lighting', format: 'Carousel', views: 92, reach: 85, likes: 5, comments: 0, shares: 0, saves: 1, watch: '–' },
+      { date: '16 Oct 2026', platform: 'Instagram', title: 'Operasi Pesta Copet: cast reacts', format: 'Reels', views: 3800, reach: 2465, likes: 85, comments: 3, shares: 6, saves: 7, watch: '12s' },
+      { date: '18 Oct 2026', platform: 'Instagram', title: 'Iqbaal interview teaser', format: 'Reels', views: 1960, reach: 1600, likes: 36, comments: 1, shares: 2, saves: 2, watch: '8s' },
+      { date: '20 Oct 2026', platform: 'TikTok', title: 'POV: first day on set', format: 'TikTok video', views: 420, reach: 0, likes: 15, comments: 1, shares: 2, saves: 0, watch: '6s' },
+      { date: '22 Oct 2026', platform: 'Instagram', title: 'Coki’s favourite films', format: 'Reels', views: 2780, reach: 2400, likes: 58, comments: 2, shares: 3, saves: 3, watch: '9s' },
+      { date: '24 Oct 2026', platform: 'Instagram', title: 'Poll: best villain', format: 'Carousel', views: 1500, reach: 1180, likes: 98, comments: 6, shares: 4, saves: 12, watch: '–' },
+      { date: '29 Oct 2026', platform: 'Instagram', title: 'Behind the poster', format: 'Carousel', views: 980, reach: 720, likes: 64, comments: 2, shares: 5, saves: 17, watch: '–' }
+    ].map((p) => {
+      const eng = p.likes + p.comments + p.shares + p.saves;
+      return { ...p, eng, erNum: eng / (p.reach || p.views) * 100 };
+    });
+
+    const dbRows = posts.map((p) => ({
+      date: p.date, platform: p.platform, pColor: p.platform === 'TikTok' ? t.tiktok : t.brand, title: p.title, format: p.format,
+      views: fmt(p.views), reach: p.reach ? fmt(p.reach) : '–',
+      likes: fmt(p.likes), comments: fmt(p.comments), shares: fmt(p.shares), saves: fmt(p.saves),
+      eng: fmt(p.eng), er: pct(p.erNum), watch: p.watch
+    }));
+    const dbCols = [['Date', 'left'], ['Platform', 'left'], ['Content', 'left'], ['Format', 'left'], ['Views', 'right'], ['Reach', 'right'], ['Likes', 'right'], ['Comments', 'right'], ['Shares', 'right'], ['Saves', 'right'], ['Engagement', 'right'], ['ER', 'right'], ['Avg watch', 'right']].map(([label, align]) => ({ label, align }));
+
+    const by = this.state.topBy;
+    const rankDefs = [['reach', 'Reach'], ['eng', 'Engagement'], ['er', 'Engagement rate'], ['views', 'Views']];
+    const rankTabs = rankDefs.map(([id, label]) => {
+      const on = id === by;
+      return { label, on: on ? 'true' : 'false', bg: on ? t.tabOnBg : 'transparent', fg: on ? t.tabOnFg : t.tabOffFg, shadow: on ? t.tabOnShadow : 'none', pick: () => this.setState({ topBy: id }) };
+    });
+    const keyOf = (p) => by === 'er' ? p.erNum : p[by];
+    const top = posts.slice().sort((a, b) => keyOf(b) - keyOf(a)).slice(0, 5).map((p, i) => ({
+      rank: String(i + 1).padStart(2, '0'), title: p.title, platform: p.platform, date: p.date, format: p.format,
+      metric: by === 'er' ? pct(p.erNum) : fmt(p[by]), thumb: t.thumbs[i]
+    }));
+    const rankLabel = (rankDefs.find((r) => r[0] === by) || rankDefs[0])[1];
+
+    const formats = [
+      { name: 'Short video (Reels)', posts: 22, reach: '935', views: '1.092', reachN: 935, viewsN: 1092, er: '3,47%', best: false },
+      { name: 'Carousel', posts: 16, reach: '640', views: '720', reachN: 640, viewsN: 720, er: '7,14%', best: true },
+      { name: 'TikTok video', posts: 6, reach: '–', views: '217', reachN: 0, viewsN: 217, er: '4,77%', best: false }
+    ].map((f) => ({ ...f, reachPct: Math.round(f.reachN / 1092 * 100) + '%', viewsPct: Math.round(f.viewsN / 1092 * 100) + '%', erColor: f.best ? t.up : t.muted }));
+
+    const dayData = [['Sun', 488, 17], ['Mon', 131, 4], ['Tue', 411, 18], ['Wed', 188, 12], ['Thu', 1017, 24], ['Fri', 486, 34], ['Sat', 744, 39]];
+    const days = dayData.map(([day, reach, eng]) => {
+      const best = reach === 1017;
+      const worst = reach === 131;
+      const sat = day === 'Sat';
+      return {
+        day, reach: fmt(reach), eng,
+        h: Math.max(10, Math.round(reach / 1017 * 170)) + 'px',
+        fill: best ? 'linear-gradient(180deg, #c3ea8e, #7fae3e)' : (sat ? 'linear-gradient(180deg, #b3a3e6, #7564ad)' : (worst ? 'linear-gradient(180deg, rgba(233,139,122,0.75), rgba(233,139,122,0.3))' : t.barDim)),
+        edge: t.barEdge,
+        glow: best ? '0 0 24px rgba(158,205,90,0.55)' : (sat ? '0 0 20px rgba(132,114,182,0.5)' : 'none'),
+        labelColor: best ? t.up : (worst ? t.down : t.text)
+      };
+    });
+
+    return { ...c, platRows, donuts, rankTabs, top, rankLabel, formats, days, dbRows, dbCols };
+  }
+}
+</script>
+</body>
+</html>

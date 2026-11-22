@@ -1,0 +1,87 @@
+/* The full-page skeleton while the dashboard checks who you are (PageSkeleton.jsx) and the
+   loading blocks inside pages. */
+
+.sk {
+  display: block;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--track) 0%, var(--sel-bg) 50%, var(--track) 100%);
+  background-size: 200% 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sk {
+    animation: sk-shine 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes sk-shine {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.sk-nav {
+  gap: 24px;
+}
+
+.sk-logo {
+  width: 100px;
+  height: 22px;
+}
+
+.sk-tabs {
+  flex: 1;
+  max-width: 560px;
+  height: 22px;
+}
+
+.sk-btn {
+  width: 180px;
+  height: 40px;
+  border-radius: 999px;
+}
+
+.sk-h1 {
+  width: min(620px, 90%);
+  height: 40px;
+}
+
+.sk-h1.is-short {
+  width: min(320px, 60%);
+  margin-top: -6px;
+}
+
+.sk-p {
+  width: min(480px, 80%);
+  height: 44px;
+}
+
+.sk-h2 {
+  width: 260px;
+  height: 26px;
+}
+
+.sk-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.sk-card {
+  flex: 1 1 300px;
+  height: 200px;
+  border-radius: 22px;
+}
+
+@media (max-width: 640px) {
+  .sk-tabs {
+    display: none;
+  }
+
+  .sk-btn {
+    width: 44px;
+  }
+}

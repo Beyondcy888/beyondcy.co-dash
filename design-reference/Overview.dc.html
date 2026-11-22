@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Beyond 360 Dashboard · Overview</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0}
+.b360-mob{display:none}
+@media (max-width: 640px){
+.b360-wrap{padding:14px 12px 48px !important;gap:22px !important}
+.b360-nav{padding:8px 8px 8px 18px !important;border-radius:26px !important;row-gap:8px !important}
+.b360-tabs{order:3;width:100%;flex-wrap:nowrap !important;overflow-x:auto;scrollbar-width:none}
+.b360-tabs a{flex:none}
+.b360-name{display:none !important}
+.b360-h1{font-size:27px !important}
+section[aria-labelledby]{padding:18px !important;border-radius:24px !important;gap:18px !important}
+.b360-big{font-size:42px !important}
+.b360-mid{font-size:32px !important}
+.b360-tgt{flex-basis:40% !important;padding:14px 16px !important}
+.b360-desk{display:none !important}
+.b360-mob{display:flex !important}
+.b360-tabs,.b360-acct{display:none !important}
+.b360-burger{display:inline-flex !important}
+}
+.b360-burger{display:none}
+</style>
+</helmet>
+<div style="position: relative; overflow: hidden; width: 100%; min-height: 100vh; background: {{t.bg}}; color: {{t.text}}; font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+  <div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none">
+    <div style="position: absolute; width: 1200px; height: 1000px; right: -420px; top: -480px; border-radius: 50%; background: radial-gradient(closest-side, {{t.glowA}}, transparent)"></div>
+    <div style="position: absolute; width: 1600px; height: 1300px; left: -820px; top: 360px; border-radius: 50%; background: radial-gradient(closest-side, {{t.glowB}}, transparent)"></div>
+    <div style="position: absolute; width: 1100px; height: 1000px; right: -380px; top: 1250px; border-radius: 50%; background: radial-gradient(closest-side, {{t.glowC}}, transparent)"></div>
+  </div>
+
+  <div class="b360-wrap" style="position: relative; max-width: 1240px; margin: 0 auto; padding: 28px 24px 64px; box-sizing: border-box; display: flex; flex-direction: column; gap: 32px">
+
+    <header class="b360-nav" style="position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; min-height: 60px; padding: 9px 10px 9px 30px; box-sizing: border-box; border-radius: 32px; background: {{t.nav}}; border: 1px solid {{t.navBorder}}; box-shadow: {{t.navShadow}}; backdrop-filter: blur(20px) saturate(150%); -webkit-backdrop-filter: blur(20px) saturate(150%); font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+      <a href="#" aria-label="Beyondcy home" style="display: block; line-height: 0">
+        <sc-if value="{{isDark}}" hint-placeholder-val="{{true}}"><img src="/_blob/904b4135f5d736c2edae5c07615cfa81" alt="Beyondcy" style="display: block; width: 100px; height: auto"></sc-if>
+        <sc-if value="{{isLight}}" hint-placeholder-val="{{false}}"><img src="/_blob/9ea8c66a8ea76fce59c3bb48c2bfe581" alt="Beyondcy" style="display: block; width: 112px; height: auto"></sc-if>
+      </a>
+      <nav class="b360-tabs" aria-label="Dashboard sections" style="display: flex; flex-wrap: wrap; gap: 4px">
+        <sc-for list="{{tabs}}" as="tab" hint-placeholder-count="5">
+          <a href="{{tab.href}}" aria-current="{{tab.current}}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; box-sizing: border-box; border-radius: 999px; font-size: 14px; font-weight: 500; text-decoration: none; background: {{tab.bg}}; color: {{tab.fg}}; box-shadow: {{tab.shadow}}">{{tab.label}}</a>
+        </sc-for>
+      </nav>
+      <div class="b360-acct" style="display: flex; align-items: center; gap: 12px">
+        <span class="b360-name" style="display: inline-flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500">
+          <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(140deg, #a291d8, #6a58a3); color: #ffffff; font-size: 13px; font-weight: 700; box-shadow: inset 0 1px 0 rgba(255,255,255,0.35)">N</span>
+          [Name]
+        </span>
+        <a href="#" style="display: inline-flex; align-items: center; height: 40px; padding: 0 18px; border-radius: 999px; background: {{t.btn}}; color: {{t.btnText}}; font-size: 14px; font-weight: 600; text-decoration: none; box-shadow: inset 0 1px 0 rgba(255,255,255,0.28)">Log out</a>
+      </div>
+      <button type="button" class="b360-burger" onClick="{{toggleNav}}" aria-expanded="{{navOpen}}" aria-label="Menu" style="align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; padding: 0; background: transparent; cursor: pointer">
+        <span aria-hidden="true" style="display: flex; flex-direction: column; gap: 5px; width: 28px">
+          <span style="display: block; height: 3px; border-radius: 3px; background: {{t.burger}}"></span>
+          <span style="display: block; height: 3px; border-radius: 3px; background: {{t.burger}}"></span>
+          <span style="display: block; height: 3px; border-radius: 3px; background: {{t.burger}}"></span>
+        </span>
+      </button>
+      <sc-if value="{{navOpen}}" hint-placeholder-val="{{false}}">
+        <div style="position: absolute; right: 0; top: calc(100% + 10px); width: 250px; padding: 8px; box-sizing: border-box; border-radius: 22px; background: {{t.popover}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.popShadow}}; backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); display: flex; flex-direction: column; gap: 2px">
+          <nav aria-label="Dashboard menu" style="display: flex; flex-direction: column; gap: 2px">
+            <sc-for list="{{tabs}}" as="tab" hint-placeholder-count="5">
+              <a href="{{tab.href}}" aria-current="{{tab.current}}" style="display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 14px; font-size: 15px; font-weight: 500; text-decoration: none; background: {{tab.bg}}; color: {{tab.fg}}">{{tab.label}}</a>
+            </sc-for>
+          </nav>
+          <div style="height: 1px; margin: 6px 8px; background: {{t.line}}"></div>
+          <div style="display: flex; align-items: center; gap: 10px; padding: 6px 10px; font-size: 14px; font-weight: 500">
+            <span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(140deg, #a291d8, #6a58a3); color: #ffffff; font-size: 13px; font-weight: 700">N</span>
+            [Name]
+          </div>
+          <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 4px; border-radius: 14px; background: {{t.btn}}; color: {{t.btnText}}; font-size: 14px; font-weight: 600; text-decoration: none; box-shadow: inset 0 1px 0 rgba(255,255,255,0.28)">Log out</a>
+        </div>
+      </sc-if>
+    </header>
+
+    <section style="display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 28px 0 0; text-align: center">
+            <h1 class="b360-h1" style="margin: 0; max-width: 820px; font-size: 40px; line-height: 1.18; font-weight: 700; letter-spacing: -0.02em">Hi [Name], Welcome to <span style="background: {{t.gradient}}; -webkit-background-clip: text; background-clip: text; color: transparent">Beyond 360° Dashboard!</span></h1>
+      <p style="margin: 0; max-width: 540px; font-size: 16px; line-height: 1.65; color: {{t.muted}}">The Beyond 360 Dashboard is where strategy meets execution. Review, refine, and approve your content in a single, streamlined workspace.</p>
+    </section>
+
+    <div style="position: relative; z-index: 6; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: 'Plus Jakarta Sans', system-ui, sans-serif">
+      <p style="margin: 0; font-size: 14px; color: {{t.muted}}">Showing <strong style="color: {{t.text}}; font-weight: 600">{{rangeLabel}}</strong> · compared with the previous period</p>
+      <div style="position: relative; display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+        <button type="button" onClick="{{toggleDate}}" aria-expanded="{{dateOpen}}" aria-haspopup="dialog" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border-radius: 999px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); color: {{t.text}}; font: 500 14px 'Plus Jakarta Sans', system-ui, sans-serif; cursor: pointer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+          {{rangeLabel}}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <a href="#" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; box-sizing: border-box; border-radius: 999px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); color: {{t.text}}; font-size: 14px; font-weight: 500; text-decoration: none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg>
+          Download PDF
+        </a>
+        <sc-if value="{{dateOpen}}" hint-placeholder-val="{{false}}">
+          <div role="dialog" aria-label="Choose date period" style="position: absolute; right: 0; top: calc(100% + 10px); width: 300px; padding: 10px; box-sizing: border-box; border-radius: 22px; background: {{t.popover}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.popShadow}}; backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); display: flex; flex-direction: column; gap: 2px">
+            <sc-for list="{{presets}}" as="p" hint-placeholder-count="5">
+              <button type="button" onClick="{{p.pick}}" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 0 14px; border: 0; border-radius: 14px; background: {{p.bg}}; color: {{p.fg}}; font: 500 14px 'Plus Jakarta Sans', system-ui, sans-serif; text-align: left; cursor: pointer">
+                <span>{{p.label}}</span>
+                <span style="font-size: 12px; color: {{t.faint}}">{{p.hint}}</span>
+              </button>
+            </sc-for>
+            <sc-if value="{{isCustom}}" hint-placeholder-val="{{false}}">
+              <div style="margin: 6px 2px 2px; padding: 12px 4px 4px; border-top: 1px solid {{t.line}}">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 13px; font-weight: 600"><span>{{cal.month}}</span><span style="font-size: 12px; font-weight: 500; color: {{t.muted}}">{{cal.hint}}</span></div>
+                <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; text-align: center">
+                  <sc-for list="{{cal.heads}}" as="h" hint-placeholder-count="7"><span style="padding: 4px 0; font-size: 11px; font-weight: 500; color: {{t.faint}}">{{h}}</span></sc-for>
+                  <sc-for list="{{cal.cells}}" as="cd" hint-placeholder-count="35">
+                    <button type="button" onClick="{{cd.pick}}" disabled="{{cd.blank}}" style="height: 32px; padding: 0; border: 0; border-radius: 10px; background: {{cd.bg}}; color: {{cd.fg}}; font: {{cd.weight}} 12px 'Plus Jakarta Sans', system-ui, sans-serif; visibility: {{cd.vis}}; cursor: pointer">{{cd.n}}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <button type="button" onClick="{{toggleDate}}" style="margin-top: 6px; min-height: 44px; border: 0; border-radius: 14px; background: {{t.primary}}; color: {{t.primaryText}}; font: 600 14px 'Plus Jakarta Sans', system-ui, sans-serif; box-shadow: inset 0 1px 0 rgba(255,255,255,0.3); cursor: pointer">Apply</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+
+    <section aria-labelledby="snap" style="display: flex; flex-direction: column; gap: 24px; padding: 28px; border-radius: 30px; background: {{t.panel}}; border: 1px solid {{t.panelBorder}}; box-shadow: {{t.panelShadow}}; backdrop-filter: blur(28px) saturate(140%); -webkit-backdrop-filter: blur(28px) saturate(140%)">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+        <div>
+          <h2 id="snap" style="margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em">Platform &amp; Account Overview</h2>
+          <p style="margin: 6px 0 0; font-size: 14px; color: {{t.muted}}">Headline numbers for the period across every platform.</p>
+        </div>
+        <div style="position: relative; z-index: 20">
+          <button type="button" onClick="{{result.toggle}}" aria-haspopup="listbox" aria-expanded="{{result.open}}" style="display: inline-flex; align-items: center; gap: 10px; min-height: 42px; padding: 0 16px 0 18px; border-radius: 999px; border: 1px solid {{t.inputBorder}}; background: {{t.input}}; color: {{t.text}}; font: 500 14px 'Plus Jakarta Sans', system-ui, sans-serif; cursor: pointer"><span style="color: {{t.muted}}">Ads result</span>{{result.value}}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <sc-if value="{{result.open}}" hint-placeholder-val="{{false}}">
+            <div role="listbox" aria-label="Ads result" style="position: absolute; right: 0; top: calc(100% + 8px); width: 220px; padding: 6px; box-sizing: border-box; border-radius: 18px; background: {{t.popover}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.popShadow}}; backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); display: flex; flex-direction: column; gap: 2px">
+              <sc-for list="{{result.options}}" as="o" hint-placeholder-count="4">
+                <button type="button" role="option" aria-selected="{{o.isOn}}" onClick="{{o.pick}}" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 40px; padding: 0 12px; border: 0; border-radius: 12px; background: {{o.bg}}; color: {{t.text}}; font: 500 14px 'Plus Jakarta Sans', system-ui, sans-serif; text-align: left; cursor: pointer">{{o.label}}<sc-if value="{{o.isOn}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></sc-if></button>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px">
+        <sc-for list="{{kpis}}" as="k" hint-placeholder-count="6">
+          <article style="position: relative; flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 200px; padding: 22px 24px; box-sizing: border-box; border-radius: 22px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}; overflow: hidden">
+            <div aria-hidden="true" style="position: absolute; width: 260px; height: 260px; right: -110px; top: -130px; border-radius: 50%; background: radial-gradient(closest-side, {{k.glow}}, transparent)"></div>
+            <div style="position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+              <p style="margin: 0; font-size: 15px; font-weight: 500; color: {{t.textSoft}}">{{k.label}}</p>
+              <span style="font: 600 13px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{k.deltaColor}}; white-space: nowrap">{{k.delta}}</span>
+            </div>
+            <div style="position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px">
+              <p class="b360-big" style="margin: 0; font-size: 54px; line-height: 0.95; font-weight: 600; letter-spacing: -0.035em; font-variant-numeric: tabular-nums">{{k.value}}</p>
+              <span style="padding-bottom: 4px; font-size: 18px; font-weight: 500; color: {{t.muted}}">{{k.unit}}</span>
+            </div>
+            <div style="position: relative; display: flex; flex-direction: column; gap: 9px">
+              <div aria-hidden="true" style="height: 3px; border-radius: 999px; background: {{t.track}}"><div style="height: 3px; width: {{k.pct}}; border-radius: 999px; background: {{k.bar}}; box-shadow: 0 0 12px {{k.bar}}"></div></div>
+              <div style="display: flex; justify-content: space-between; gap: 8px; font: 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.faint}}"><span>{{k.target}}</span><span>{{k.pctText}}</span></div>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section aria-labelledby="exec" style="display: flex; flex-direction: column; gap: 24px; padding: 28px; border-radius: 30px; background: {{t.panel}}; border: 1px solid {{t.panelBorder}}; box-shadow: {{t.panelShadow}}; backdrop-filter: blur(28px) saturate(140%); -webkit-backdrop-filter: blur(28px) saturate(140%)">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+        <div>
+          <h2 id="exec" style="margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em">Executive Summary</h2>
+          <p style="margin: 6px 0 0; font-size: 14px; color: {{t.muted}}">Key takeaways for the month, written by your Beyondcy account team.</p>
+        </div>
+        <span style="display: inline-flex; align-items: center; gap: 8px; font: 500 13px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.muted}}"><span aria-hidden="true" style="display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(140deg, #b9e086, #6f9a35); color: #121311; font-size: 11px; font-weight: 700">AT</span>Updated 3 Nov 2026</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px">
+        <sc-for list="{{summary}}" as="s" hint-placeholder-count="5">
+          <article style="position: relative; flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding: 24px 24px 10px; box-sizing: border-box; border-radius: 22px; background: {{t.card}}; border: 1px solid {{t.cardBorder}}; box-shadow: {{t.cardShadow}}; overflow: hidden">
+            <div aria-hidden="true" style="position: absolute; width: 240px; height: 240px; left: -120px; top: -140px; border-radius: 50%; background: radial-gradient(closest-side, {{s.glow}}, transparent)"></div>
+            <h3 style="position: relative; margin: 0 0 8px; display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: {{s.color}}; box-shadow: 0 0 12px {{s.color}}"></span>{{s.title}}</h3>
+            <ol style="position: relative; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+              <sc-for list="{{s.items}}" as="it" hint-placeholder-count="3">
+                <li style="display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid {{t.line}}">
+                  <span style="flex: none; width: 18px; padding-top: 2px; font: 600 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.faint}}">{{it.n}}</span>
+                  <p style="margin: 0; font-size: 14px; line-height: 1.6; color: {{t.textSoft}}"><strong style="font-weight: 600; color: {{t.text}}">{{it.head}}</strong> {{it.body}}</p>
+                </li>
+              </sc-for>
+            </ol>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <footer style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; font: 12px 'Plus Jakarta Sans', system-ui, sans-serif; color: {{t.faint}}; text-align: center">
+      <sc-if value="{{isLight}}" hint-placeholder-val="{{false}}"><img src="/_blob/2154d771730db51143d12d693366504e" alt="" style="display: block; width: 36px; height: auto"></sc-if>
+      <span>Beyond 360° Dashboard by Beyondcy · Synced from Meta and TikTok · Last sync 18 Nov 2026, 09:30 WIB</span>
+    </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":2000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { dateOpen: false, preset: 'last', rs: 6, re: 20, menu: null, vals: {} };
+  }
+  isLight() { return (this.props.theme ?? 'dark') === 'light'; }
+  tokens() {
+    if (this.isLight()) {
+      return {
+        bg: '#f3f3f5', text: '#1b1830', textSoft: '#36324a', muted: '#5a5670', faint: '#646080',
+        panel: 'linear-gradient(150deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.42) 60%, rgba(255,255,255,0.6) 100%)',
+        panelBorder: 'rgba(255,255,255,0.95)', panelShadow: 'inset 0 1px 0 #ffffff, 0 40px 80px -36px rgba(64,48,120,0.30)',
+        card: 'linear-gradient(160deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.58) 100%)',
+        cardBorder: '#ffffff', cardShadow: 'inset 0 1px 0 #ffffff, 0 16px 36px -18px rgba(64,48,120,0.28)',
+        line: 'rgba(27,24,48,0.08)', track: 'rgba(27,24,48,0.09)',
+        nav: 'rgba(255,255,255,0.8)', navBorder: '#ffffff', navShadow: 'inset 0 1px 0 #ffffff, 0 18px 40px -24px rgba(40,30,80,0.28)',
+        tabOnBg: 'rgba(132,114,182,0.13)', tabOnFg: '#3f3375', tabOnShadow: 'inset 0 0 0 1px rgba(132,114,182,0.22)', tabOffFg: '#55516a', tabDot: '#8472b6', burger: '#6e6a84',
+        input: 'rgba(255,255,255,0.8)', inputBorder: 'rgba(27,24,48,0.12)',
+        popover: 'rgba(255,255,255,0.92)', popShadow: '0 30px 60px -20px rgba(64,48,120,0.35)', selBg: 'rgba(132,114,182,0.14)',
+        up: '#3d6b12', down: '#b23a24', neutral: '#5a5670',
+        good: '#8fc04a', bad: '#e0806c', brand: '#8472b6',
+        glowGood: 'rgba(158,205,90,0.30)', glowBad: 'rgba(224,128,108,0.22)', glowBrand: 'rgba(132,114,182,0.30)',
+        btn: '#6f5ea8', btnText: '#ffffff', primary: '#7564ad', primaryText: '#ffffff',
+        glowA: 'rgba(132,114,182,0.30)', glowB: 'rgba(158,205,90,0.38)', glowC: 'rgba(170,150,230,0.20)',
+        gradient: 'linear-gradient(90deg, #5b8a22 0%, #6c6f9a 50%, #6a58a3 100%)'
+      };
+    }
+    return {
+      bg: '#070708', text: '#ffffff', textSoft: 'rgba(255,255,255,0.82)', muted: 'rgba(255,255,255,0.62)', faint: 'rgba(255,255,255,0.5)',
+      panel: 'linear-gradient(150deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.025) 55%, rgba(255,255,255,0.05) 100%)',
+      panelBorder: 'rgba(255,255,255,0.12)', panelShadow: 'inset 0 1px 0 rgba(255,255,255,0.14), 0 40px 80px -30px rgba(0,0,0,0.7)',
+      card: 'linear-gradient(160deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.04) 100%)',
+      cardBorder: 'rgba(255,255,255,0.16)', cardShadow: 'inset 0 1px 0 rgba(255,255,255,0.22), 0 18px 40px -18px rgba(0,0,0,0.6)',
+      line: 'rgba(255,255,255,0.08)', track: 'rgba(255,255,255,0.10)',
+      nav: 'rgba(14,14,16,0.5)', navBorder: 'rgba(255,255,255,0.28)', navShadow: 'inset 0 1px 0 rgba(255,255,255,0.10)',
+      tabOnBg: 'rgba(255,255,255,0.13)', tabOnFg: '#ffffff', tabOnShadow: 'inset 0 1px 0 rgba(255,255,255,0.25), 0 0 0 1px rgba(255,255,255,0.10)', tabOffFg: 'rgba(255,255,255,0.66)', tabDot: '#9ecd5a', burger: 'rgba(255,255,255,0.5)',
+      input: 'rgba(255,255,255,0.07)', inputBorder: 'rgba(255,255,255,0.16)',
+      popover: 'rgba(26,26,30,0.86)', popShadow: '0 30px 60px -20px rgba(0,0,0,0.8)', selBg: 'rgba(255,255,255,0.10)',
+      up: '#b6e07c', down: '#ff9c8c', neutral: 'rgba(255,255,255,0.7)',
+      good: '#9ecd5a', bad: '#e98b7a', brand: '#9a88cf',
+      glowGood: 'rgba(158,205,90,0.32)', glowBad: 'rgba(233,139,122,0.22)', glowBrand: 'rgba(132,114,182,0.40)',
+      btn: '#799c46', btnText: '#ffffff', primary: '#9ecd5a', primaryText: '#121311',
+      glowA: 'rgba(132,114,182,0.55)', glowB: 'rgba(158,205,90,0.42)', glowC: 'rgba(104,109,175,0.40)',
+      gradient: 'linear-gradient(90deg, #9ecd5a 0%, #849e86 50%, #6c73b2 100%)'
+    };
+  }
+  chrome(active) {
+    const t = this.tokens();
+    const light = this.isLight();
+    const sfx = light ? 'Light' : '';
+    const defs = [['Overview', 'Overview'], ['Calendar', 'Content Calendar'], ['Content', 'Content Performance'], ['Audience', 'Audience'], ['PaidAds', 'Paid Ads']];
+    const tabs = defs.map(([id, label]) => {
+      const on = id === active;
+      return { label, href: id + sfx + '.dc.html', current: on ? 'page' : 'false', bg: on ? t.tabOnBg : 'transparent', fg: on ? t.tabOnFg : t.tabOffFg, shadow: on ? t.tabOnShadow : 'none', dot: on ? t.tabDot : 'transparent' };
+    });
+    const list = [
+      { id: 'this', label: 'This month', hint: '1 – 18 Nov', range: '1 – 18 Nov 2026' },
+      { id: 'last', label: 'Last month', hint: 'Oct 2026', range: '1 – 31 Oct 2026' },
+      { id: 'q', label: 'Last 3 months', hint: 'Aug – Oct', range: '1 Aug – 31 Oct 2026' },
+      { id: 'ytd', label: 'Year to date', hint: 'Jan – Nov', range: '1 Jan – 18 Nov 2026' },
+      { id: 'custom', label: 'Custom range', hint: 'Pick dates', range: 'Custom range' }
+    ];
+    const presets = list.map((p) => {
+      const on = p.id === this.state.preset;
+      return { ...p, bg: on ? t.selBg : 'transparent', fg: on ? t.text : t.muted, pick: () => this.setState({ preset: p.id }) };
+    });
+    const cur = list.find((p) => p.id === this.state.preset) || list[1];
+    const m = active === 'Calendar' ? { name: 'November 2026', lead: 0, days: 30, short: 'Nov' } : { name: 'October 2026', lead: 4, days: 31, short: 'Oct' };
+    const rs = this.state.rs, re = this.state.re;
+    const calCells = [];
+    for (let i = 0; i < m.lead; i++) calCells.push({ n: '', blank: true, vis: 'hidden', bg: 'transparent', fg: t.text, weight: 400, pick: () => {} });
+    for (let d = 1; d <= m.days; d++) {
+      const edge = d === rs || d === re;
+      const inside = re != null && d > rs && d < re;
+      calCells.push({
+        n: d, blank: false, vis: 'visible', weight: edge ? 600 : 400,
+        bg: edge ? t.primary : (inside ? t.selBg : 'transparent'), fg: edge ? t.primaryText : t.text,
+        pick: () => {
+          if (this.state.re != null) this.setState({ rs: d, re: null });
+          else if (d < this.state.rs) this.setState({ rs: d, re: this.state.rs });
+          else this.setState({ re: d });
+        }
+      });
+    }
+    const cal = { month: m.name, hint: re != null ? rs + ' – ' + re + ' ' + m.short : 'Pick an end date', heads: ['S', 'M', 'T', 'W', 'T', 'F', 'S'], cells: calCells };
+    const customOn = this.state.preset === 'custom';
+    return {
+      t, tabs, presets, isLight: light, isDark: !light, cal,
+      navOpen: !!this.state.navOpen, toggleNav: () => this.setState({ navOpen: !this.state.navOpen }),
+      rangeLabel: customOn ? (re != null ? rs + ' – ' + re + ' ' + m.short + ' 2026' : 'Custom range') : cur.range,
+      dateOpen: this.state.dateOpen,
+      isCustom: this.state.preset === 'custom',
+      toggleDate: () => this.setState({ dateOpen: !this.state.dateOpen })
+    };
+  }
+  dd(id, name, opts, def) {
+    const t = this.tokens();
+    const val = (this.state.vals || {})[id] ?? def;
+    return {
+      name, value: val, open: this.state.menu === id,
+      toggle: () => this.setState({ menu: this.state.menu === id ? null : id }),
+      options: opts.map((o) => ({ label: o, isOn: o === val, bg: o === val ? t.selBg : 'transparent', pick: () => this.setState({ vals: { ...(this.state.vals || {}), [id]: o }, menu: null }) }))
+    };
+  }
+  renderVals() {
+    const c = this.chrome('Overview');
+    const t = c.t;
+    const look = {
+      good: { deltaColor: t.up, bar: t.good, glow: t.glowGood },
+      bad: { deltaColor: t.down, bar: t.bad, glow: t.glowBad },
+      neutral: { deltaColor: t.neutral, bar: t.brand, glow: t.glowBrand }
+    };
+    const kpis = [
+      { label: 'Content published', value: '44', unit: 'posts', pct: '100%', target: 'Target 40', pctText: '110%', delta: '↑ 26,7%', kind: 'good' },
+      { label: 'Views / impressions', value: '89.200', unit: '', pct: '59%', target: 'Target 150.000', pctText: '59%', delta: '↓ 87,1%', kind: 'bad' },
+      { label: 'New followers', value: '274', unit: '', pct: '55%', target: 'Target 500', pctText: '55%', delta: '↓ 70,0%', kind: 'bad' },
+      { label: 'Media spend', value: 'Rp30,2', unit: 'Mio', pct: '86%', target: 'Budget Rp35 Mio', pctText: '86% used', delta: '↑ 12,4%', kind: 'neutral' },
+      { label: 'Results: leads', value: '13.420', unit: '', pct: '100%', target: 'Target 12.000', pctText: '112%', delta: '↑ 18,2%', kind: 'good' },
+      { label: 'Cost per lead', value: 'Rp2.250', unit: '', pct: '90%', target: 'Benchmark Rp2.500', pctText: '10% under', delta: '↓ 6,3%', kind: 'good' }
+    ].map((k) => ({ ...k, ...look[k.kind] }));
+
+    const item = (list) => list.map((x, i) => ({ n: String(i + 1).padStart(2, '0'), head: x[0], body: x[1] }));
+    const summary = [
+      { title: 'Key highlights', color: t.good, glow: t.glowGood, items: item([
+        ['Followers keep growing.', '3.232 in total, +274 net this month.'],
+        ['Short videos win on reach.', 'Avg 935 reach and 1.092 views, 2,5× wider than carousels.'],
+        ['Carousels win on engagement.', '7,14% avg ER vs 3,47% for video.'],
+        ['Top post: “News: Rumah Singgah”.', '6.200 views, 4.900 reach, 110 engagements.']
+      ]) },
+      { title: 'Key challenges', color: t.bad, glow: t.glowBad, items: item([
+        ['Sharp drop vs last month.', 'Views −87,3%, reach −85,0%, interactions −88,7%.'],
+        ['TikTok is still slow.', '6 posts reached only 1.300 views and 62 engagements.'],
+        ['Profile visits fell 79,8%.', '363 visits vs 1.800 last month.']
+      ]) },
+      { title: 'Next month focus', color: t.brand, glow: t.glowBrand, items: item([
+        ['Fix the hook.', 'Sharpen the first 3 seconds of short videos to win back reach.'],
+        ['TikTok-native video.', 'Vertical, trending audio, no reposted statics.'],
+        ['Prime time.', 'Key posts Thursday to Sunday, fewer on Monday.'],
+        ['Stronger CTAs.', 'Ask people to visit the bio and save posts.']
+      ]) },
+      { title: 'What worked', color: t.good, glow: t.glowGood, items: item([
+        ['Pop culture and public figures.', 'Rumah Singgah, Operasi Pesta Copet, Coki, Iqbaal.'],
+        ['Thursday and weekends.', 'Thursday best for reach (avg 1.017), Saturday for interactions (avg 39).'],
+        ['Interactive carousels.', 'Drove saves, comments and a high ER.']
+      ]) },
+      { title: 'What didn’t work', color: t.bad, glow: t.glowBad, items: item([
+        ['Niche education pillar.', 'Film School 101 stayed under 100 views.'],
+        ['Carousels reposted to TikTok.', 'Only dozens of views each.'],
+        ['Monday posts.', 'Lowest results: avg 131 reach, 4 engagements.']
+      ]) }
+    ];
+    return { ...c, kpis, summary, result: this.dd('result', 'Ads result', ['Leads', 'Messages', 'Purchases', 'New followers'], 'Leads') };
+  }
+}
+</script>
+</body>
+</html>

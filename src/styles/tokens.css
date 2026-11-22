@@ -1,0 +1,110 @@
+/* Beyond 360° Dashboard design tokens: the mock's own values (design-reference/*.dc.html,
+   tokens()), dark (default) and light. Its own look, separate from the tracker's. */
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #070708;
+  --text: #ffffff;
+  --text-soft: rgba(255, 255, 255, 0.82);
+  --muted: rgba(255, 255, 255, 0.62);
+  --faint: rgba(255, 255, 255, 0.5);
+  --panel: linear-gradient(150deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.025) 55%, rgba(255, 255, 255, 0.05) 100%);
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --panel-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 40px 80px -30px rgba(0, 0, 0, 0.7);
+  --card: linear-gradient(160deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.04) 100%);
+  --card-border: rgba(255, 255, 255, 0.16);
+  --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 18px 40px -18px rgba(0, 0, 0, 0.6);
+  --line: rgba(255, 255, 255, 0.08);
+  --track: rgba(255, 255, 255, 0.1);
+  --nav: rgba(14, 14, 16, 0.5);
+  --nav-border: rgba(255, 255, 255, 0.28);
+  --nav-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --tab-on-bg: rgba(255, 255, 255, 0.13);
+  --tab-on-fg: #ffffff;
+  --tab-on-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  --tab-off-fg: rgba(255, 255, 255, 0.66);
+  --tab-dot: #9ecd5a;
+  --burger: rgba(255, 255, 255, 0.5);
+  --input: rgba(255, 255, 255, 0.07);
+  --input-border: rgba(255, 255, 255, 0.16);
+  --popover: rgba(26, 26, 30, 0.86);
+  --pop-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8);
+  --sel-bg: rgba(255, 255, 255, 0.1);
+  --up: #b6e07c;
+  --down: #ff9c8c;
+  --neutral: rgba(255, 255, 255, 0.7);
+  --good: #9ecd5a;
+  --bad: #e98b7a;
+  --brand: #9a88cf;
+  --glow-good: rgba(158, 205, 90, 0.32);
+  --glow-bad: rgba(233, 139, 122, 0.22);
+  --glow-brand: rgba(132, 114, 182, 0.4);
+  --btn: #799c46;
+  --btn-text: #ffffff;
+  --primary: #9ecd5a;
+  --primary-text: #121311;
+  --glow-a: rgba(132, 114, 182, 0.55);
+  --glow-b: rgba(158, 205, 90, 0.42);
+  --glow-c: rgba(104, 109, 175, 0.4);
+  --gradient: linear-gradient(90deg, #9ecd5a 0%, #849e86 50%, #6c73b2 100%);
+
+  /* the tracker's own content colours (Content Calendar, update v5 file 02) */
+  --type-reels: #ff8a3d;
+  --type-feed: #8f7cf7;
+  --st-not-started: #6f6c7d;
+  --st-planned: #4d8dff;
+  --st-done: #f5b83d;
+  --st-revision: #2b4ab8;
+  --st-uploaded: #9ecd59;
+
+  --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3f3f5;
+  --text: #1b1830;
+  --text-soft: #36324a;
+  --muted: #5a5670;
+  --faint: #646080;
+  --panel: linear-gradient(150deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.42) 60%, rgba(255, 255, 255, 0.6) 100%);
+  --panel-border: rgba(255, 255, 255, 0.95);
+  --panel-shadow: inset 0 1px 0 #ffffff, 0 40px 80px -36px rgba(64, 48, 120, 0.3);
+  --card: linear-gradient(160deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.58) 100%);
+  --card-border: #ffffff;
+  --card-shadow: inset 0 1px 0 #ffffff, 0 16px 36px -18px rgba(64, 48, 120, 0.28);
+  --line: rgba(27, 24, 48, 0.08);
+  --track: rgba(27, 24, 48, 0.09);
+  --nav: rgba(255, 255, 255, 0.8);
+  --nav-border: #ffffff;
+  --nav-shadow: inset 0 1px 0 #ffffff, 0 18px 40px -24px rgba(40, 30, 80, 0.28);
+  --tab-on-bg: rgba(132, 114, 182, 0.13);
+  --tab-on-fg: #3f3375;
+  --tab-on-shadow: inset 0 0 0 1px rgba(132, 114, 182, 0.22);
+  --tab-off-fg: #55516a;
+  --tab-dot: #8472b6;
+  --burger: #6e6a84;
+  --input: rgba(255, 255, 255, 0.8);
+  --input-border: rgba(27, 24, 48, 0.12);
+  --popover: rgba(255, 255, 255, 0.92);
+  --pop-shadow: 0 30px 60px -20px rgba(64, 48, 120, 0.35);
+  --sel-bg: rgba(132, 114, 182, 0.14);
+  --up: #3d6b12;
+  --down: #b23a24;
+  --neutral: #5a5670;
+  --good: #8fc04a;
+  --bad: #e0806c;
+  --brand: #8472b6;
+  --glow-good: rgba(158, 205, 90, 0.3);
+  --glow-bad: rgba(224, 128, 108, 0.22);
+  --glow-brand: rgba(132, 114, 182, 0.3);
+  --btn: #6f5ea8;
+  --btn-text: #ffffff;
+  --primary: #7564ad;
+  --primary-text: #ffffff;
+  --glow-a: rgba(132, 114, 182, 0.3);
+  --glow-b: rgba(158, 205, 90, 0.38);
+  --glow-c: rgba(170, 150, 230, 0.2);
+  --gradient: linear-gradient(90deg, #5b8a22 0%, #6c6f9a 50%, #6a58a3 100%);
+}

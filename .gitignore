@@ -1,10 +1,14 @@
-# local junk: never commit (running a dev server here creates .vite/)
-.vite/
+# dependencies and build output
 node_modules/
+dist/
+
+# secrets: never commit these (.env.example, with placeholders only, is committed)
+.env
+.env.local
+.env.*.local
+
+# logs, OS files, Vite cache
+*.log
 .DS_Store
 Thumbs.db
-*.log
-
-# secrets: this site has none, keep it that way
-.env
-.env.*
+.vite/

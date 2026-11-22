@@ -1,0 +1,214 @@
+/* 1 · Overview: values from design-reference/Overview.dc.html */
+
+.ov-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* the colour of each card: good (green) · bad (coral) · neutral / brand (purple) */
+.is-good {
+  --k-delta: var(--up);
+  --k-bar: var(--good);
+  --k-glow: var(--glow-good);
+  --k-dot: var(--good);
+}
+
+.is-bad {
+  --k-delta: var(--down);
+  --k-bar: var(--bad);
+  --k-glow: var(--glow-bad);
+  --k-dot: var(--bad);
+}
+
+.is-neutral {
+  --k-delta: var(--neutral);
+  --k-bar: var(--brand);
+  --k-glow: var(--glow-brand);
+}
+
+.is-brand {
+  --k-dot: var(--brand);
+  --k-glow: var(--glow-brand);
+}
+
+.ov-kpi {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 200px;
+  padding: 22px 24px;
+}
+
+.ov-kpi-glow {
+  width: 260px;
+  height: 260px;
+  right: -110px;
+  top: -130px;
+  background: radial-gradient(closest-side, var(--k-glow), transparent);
+}
+
+.ov-kpi-top {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ov-kpi-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.ov-kpi-delta {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--k-delta);
+  white-space: nowrap;
+}
+
+.ov-kpi-mid {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ov-kpi-value {
+  font-size: 54px;
+  line-height: 0.95;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.ov-kpi-unit {
+  padding-bottom: 4px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.ov-kpi-foot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.ov-bar {
+  height: 3px;
+  border-radius: 999px;
+  background: var(--track);
+}
+
+.ov-bar > div {
+  height: 3px;
+  border-radius: 999px;
+  background: var(--k-bar);
+  box-shadow: 0 0 12px var(--k-bar);
+}
+
+.ov-kpi-target {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--faint);
+}
+
+/* Executive Summary */
+.ov-updated {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.ov-at {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(140deg, #b9e086, #6f9a35);
+  color: #121311;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ov-sum {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 24px 24px 10px;
+}
+
+.ov-sum-glow {
+  width: 240px;
+  height: 240px;
+  left: -120px;
+  top: -140px;
+  background: radial-gradient(closest-side, var(--k-glow), transparent);
+}
+
+.ov-sum h3 {
+  position: relative;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ov-sum-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--k-dot);
+  box-shadow: 0 0 12px var(--k-dot);
+}
+
+.ov-sum ol {
+  position: relative;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.ov-sum li {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.ov-sum-n {
+  flex: none;
+  width: 18px;
+  padding-top: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--faint);
+}
+
+.ov-sum p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+.ov-sum strong {
+  font-weight: 600;
+  color: var(--text);
+}

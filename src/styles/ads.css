@@ -1,0 +1,555 @@
+/* 5 · Paid Ads: values from design-reference/PaidAds.dc.html */
+
+/* this mock's tokens() where they differ from the shared ones, plus its own keys */
+:root,
+:root[data-theme="dark"] {
+  --pa-card: linear-gradient(160deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.035) 100%);
+  --pa-card-border: rgba(255, 255, 255, 0.15);
+  --pa-card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 18px 40px -18px rgba(0, 0, 0, 0.6);
+  --pa-line: rgba(255, 255, 255, 0.07);
+  --pa-glow-brand: rgba(132, 114, 182, 0.4);
+  --pa-dim-bar: rgba(255, 255, 255, 0.2);
+  --pa-thumb-1: linear-gradient(150deg, rgba(158, 205, 90, 0.55), rgba(132, 114, 182, 0.5));
+  --pa-thumb-2: linear-gradient(150deg, rgba(132, 114, 182, 0.6), rgba(127, 178, 229, 0.4));
+  --pa-thumb-3: linear-gradient(150deg, rgba(240, 162, 74, 0.45), rgba(132, 114, 182, 0.5));
+  --pa-thumb-4: linear-gradient(150deg, rgba(127, 178, 229, 0.5), rgba(158, 205, 90, 0.4));
+}
+
+:root[data-theme="light"] {
+  --pa-card: linear-gradient(160deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.58) 100%);
+  --pa-card-border: #ffffff;
+  --pa-card-shadow: inset 0 1px 0 #ffffff, 0 16px 36px -18px rgba(64, 48, 120, 0.28);
+  --pa-line: rgba(27, 24, 48, 0.08);
+  --pa-glow-brand: rgba(132, 114, 182, 0.26);
+  --pa-dim-bar: rgba(132, 114, 182, 0.26);
+  --pa-thumb-1: linear-gradient(150deg, rgba(158, 205, 90, 0.65), rgba(132, 114, 182, 0.6));
+  --pa-thumb-2: linear-gradient(150deg, rgba(132, 114, 182, 0.7), rgba(127, 178, 229, 0.55));
+  --pa-thumb-3: linear-gradient(150deg, rgba(240, 162, 74, 0.55), rgba(132, 114, 182, 0.6));
+  --pa-thumb-4: linear-gradient(150deg, rgba(127, 178, 229, 0.6), rgba(158, 205, 90, 0.55));
+}
+
+/* the page: no box of its own; it only carries this mock's token values to everything below
+   the greeting (period row, panels, footer) */
+.pa-page {
+  display: contents;
+  --card: var(--pa-card);
+  --card-border: var(--pa-card-border);
+  --card-shadow: var(--pa-card-shadow);
+  --line: var(--pa-line);
+  --glow-brand: var(--pa-glow-brand);
+}
+
+.pa-panel {
+  gap: 22px;
+}
+
+/* a frosted card (no clipping: the bars' glows show) */
+.pa-card {
+  min-width: 0;
+  border-radius: 22px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+}
+
+.pa-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ KPIs */
+.pa-kpis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.pa-good {
+  --pa-k-delta: var(--up);
+  --pa-k-glow: var(--glow-good);
+}
+
+.pa-neutral {
+  --pa-k-delta: var(--neutral);
+  --pa-k-glow: var(--glow-brand);
+}
+
+.pa-kpi {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 26px;
+  min-height: 170px;
+  padding: 22px 24px;
+}
+
+.pa-kpi-glow {
+  width: 260px;
+  height: 260px;
+  right: -110px;
+  top: -130px;
+  background: radial-gradient(closest-side, var(--pa-k-glow), transparent);
+}
+
+.pa-kpi-top {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pa-kpi-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.pa-kpi-delta {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pa-k-delta);
+  white-space: nowrap;
+}
+
+.pa-kpi-mid {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pa-kpi-value {
+  font-size: 50px;
+  line-height: 0.95;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.pa-kpi-unit {
+  padding-bottom: 4px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ platform + efficiency */
+.pa-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* the mock sizes these two by their content box (flex basis + padding) */
+.pa-plat,
+.pa-eff {
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+}
+
+.pa-plat {
+  flex: 3 1 560px;
+  gap: 16px;
+}
+
+.pa-eff {
+  flex: 2 1 340px;
+  gap: 18px;
+}
+
+.pa-scroll {
+  overflow-x: auto;
+}
+
+.pa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.pa-table thead th {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--faint);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line);
+}
+
+.pa-table th.pa-is-left {
+  text-align: left;
+}
+
+.pa-table th.pa-is-right {
+  text-align: right;
+}
+
+.pa-table td.pa-is-cpr {
+  font-weight: 600;
+  color: var(--up);
+}
+
+.pa-plat-table {
+  min-width: 560px;
+}
+
+.pa-plat-table thead th {
+  padding: 10px 6px;
+}
+
+.pa-plat-table tbody th,
+.pa-plat-table td {
+  padding: 13px 6px;
+  font-weight: 400;
+  border-bottom: 1px solid var(--line);
+}
+
+.pa-plat-table tbody th {
+  text-align: left;
+  white-space: nowrap;
+}
+
+.pa-plat-table td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.pa-plat-table .pa-is-total th,
+.pa-plat-table .pa-is-total td {
+  font-weight: 600;
+}
+
+.pa-plat-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pa-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.pa-dot.pa-is-meta {
+  background: var(--good);
+}
+
+.pa-dot.pa-is-tiktok {
+  background: var(--brand);
+}
+
+.pa-mini-head {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.pa-share {
+  margin-top: auto;
+}
+
+.pa-share .pa-mini-head {
+  margin: 6px 0 10px;
+}
+
+.pa-share-bar {
+  display: flex;
+  gap: 4px;
+  height: 12px;
+}
+
+.pa-share-bar > div {
+  border-radius: 999px;
+}
+
+.pa-share-bar .pa-is-meta {
+  background: linear-gradient(90deg, #7fae3e, #b9e086);
+  box-shadow: 0 0 14px rgba(158, 205, 90, 0.5);
+}
+
+.pa-share-bar .pa-is-tiktok {
+  flex: 1 1 auto;
+  background: linear-gradient(90deg, #6f5ea8, #a291d8);
+  box-shadow: 0 0 14px rgba(132, 114, 182, 0.5);
+}
+
+.pa-share-legend {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.pa-eff-item {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.pa-eff-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pa-eff-verdict {
+  font-weight: 600;
+  color: var(--up);
+}
+
+.pa-track {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--track);
+}
+
+.pa-track > div {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--good);
+  box-shadow: 0 0 10px var(--good);
+}
+
+.pa-eff-detail {
+  font-size: 12px;
+  color: var(--faint);
+}
+
+.pa-weekly {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.pa-weekly .pa-mini-head {
+  margin: 0 0 12px;
+}
+
+.pa-weeks {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 130px;
+}
+
+.pa-week {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.pa-week strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pa-week span {
+  color: var(--muted);
+}
+
+.pa-week-bar {
+  width: 100%;
+  max-width: 42px;
+  border-radius: 12px 12px 6px 6px;
+  background: var(--pa-dim-bar);
+}
+
+.pa-week-bar.pa-is-peak {
+  background: linear-gradient(180deg, #b3a3e6, #7564ad);
+  box-shadow: 0 0 18px rgba(132, 114, 182, 0.55);
+}
+
+/* ------------------------------------------------------------------ campaigns running now */
+.pa-camps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.pa-camp {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px 12px 18px;
+}
+
+.pa-thumb {
+  position: relative;
+  height: 150px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.pa-thumb.pa-is-1 {
+  background: var(--pa-thumb-1);
+}
+
+.pa-thumb.pa-is-2 {
+  background: var(--pa-thumb-2);
+}
+
+.pa-thumb.pa-is-3 {
+  background: var(--pa-thumb-3);
+}
+
+.pa-thumb.pa-is-4 {
+  background: var(--pa-thumb-4);
+}
+
+.pa-thumb-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.35));
+}
+
+/* the frosted chips on the picture: white on any theme, as the mock */
+.pa-chip {
+  position: absolute;
+  top: 10px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.pa-chip.pa-is-status {
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.pa-chip.pa-is-platform {
+  right: 10px;
+}
+
+.pa-chip.pa-is-active {
+  --pa-dot: #9ecd5a;
+}
+
+.pa-chip.pa-is-paused {
+  --pa-dot: #f0a24a;
+}
+
+.pa-chip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pa-dot);
+  box-shadow: 0 0 8px var(--pa-dot);
+}
+
+.pa-camp-text {
+  padding: 0 6px;
+}
+
+.pa-camp-text h3 {
+  line-height: 1.35;
+}
+
+.pa-camp-text p {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.pa-camp-stats {
+  margin: 0 6px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.pa-camp-stats dt {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.pa-camp-stats dd {
+  margin: 3px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pa-camp-stats dd.pa-is-cpr {
+  color: var(--up);
+}
+
+/* ------------------------------------------------------------------ the ads database */
+.pa-db {
+  overflow-x: auto;
+  padding: 4px 22px 10px;
+}
+
+.pa-db-table {
+  min-width: 1120px;
+}
+
+.pa-db-table thead th {
+  padding: 16px 8px 12px;
+}
+
+.pa-db-table td {
+  padding: 13px 8px;
+  font-weight: 400;
+  border-bottom: 1px solid var(--line);
+}
+
+.pa-db-table .pa-is-total td {
+  border-bottom-color: transparent;
+}
+
+.pa-db-table td.pa-is-muted {
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+.pa-db-table td.pa-is-nowrap {
+  white-space: nowrap;
+}
+
+.pa-db-table td.pa-is-name {
+  font-weight: 500;
+}
+
+.pa-db-table td.pa-is-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.pa-db-table td.pa-is-soft {
+  color: var(--text-soft);
+}
+
+.pa-db-table .pa-is-total td:not(.pa-is-muted) {
+  font-weight: 600;
+}
+
+.pa-db-table td.pa-is-cpr {
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ phone (as the mock) */
+@media (max-width: 640px) {
+  .pa-panel {
+    gap: 18px;
+  }
+}
