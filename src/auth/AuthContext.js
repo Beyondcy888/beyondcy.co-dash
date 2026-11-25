@@ -7,7 +7,7 @@ import { createContext, useContext } from 'react';
  *   profile: { id, display_name, avatar_path, avatar_updated_at, role_id, is_active, role: { is_admin } } | null,
  *   profileStatus: 'idle' | 'loading' | 'ready' | 'error',
  *   photoUrl,              // signed URL of your photo, or null (letter fallback)
- *   leaving,               // logging out: the page is about to go to the tracker's login
+ *   leaving,               // logging out: the page is about to go to the login page
  *   reloadProfile(), signOut(),
  * }
  */

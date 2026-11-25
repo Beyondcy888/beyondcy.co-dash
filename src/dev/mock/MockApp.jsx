@@ -2,7 +2,7 @@
 // Pick who you are with ?as=stake|admin|admin2|dika|out (remembered for the tab):
 //   stake  = a Stakeholder (Nadia)       admin  = Admin Beyondcy (maintenance-exempt)
 //   admin2 = another Admin               dika   = staff (the live site sends them to the tracker)
-//   out    = signed out (the live site sends them to the tracker's login)
+//   out    = signed out (the live site sends them to the login page in the portfolio)
 // ?maint=1 turns Dashboard maintenance on for 2 hours (?maint=0 off). ?bar=0 hides the bar.
 // ?tscale=0.3 scales the targets (e.g. to see uploads over the target); ?tscale=1 back to normal.
 import { useMemo, useState } from 'react';

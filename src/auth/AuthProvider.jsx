@@ -1,9 +1,9 @@
-// The session comes from the tracker's login (update v5, file 03): both sites live on the same
-// address now, so the browser shares it. Your name and photo refresh when the tab regains
+// The session comes from the one login page, in the portfolio (update v6, file 05): the three
+// sites live on the same address, so the browser shares it. Your name and photo refresh when the tab regains
 // focus, so a change made in the tracker shows up here.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useApi } from '../data/ApiContext.js';
-import { siteLink } from '../siteLinks.js';
+import { loginLink, siteLink } from '../siteLinks.js';
 import { AuthContext } from './AuthContext.js';
 
 const FOCUS_THROTTLE = 15 * 1000;
@@ -95,12 +95,12 @@ export function AuthProvider({ children }) {
     if (userId) load(userId);
   }, [userId, load]);
 
-  /** Log out → signed out of both sites → the tracker's login page. */
+  /** Log out → signed out of both sites → the login page, which comes back to the dashboard. */
   const signOut = useCallback(async () => {
     setLeaving(true);
     await api.signOut();
     if (import.meta.env.MODE === 'mock') setLeaving(false);
-    else window.location.replace(siteLink('track', 'login'));
+    else window.location.replace(loginLink(siteLink('dash')));
   }, [api]);
 
   const value = useMemo(

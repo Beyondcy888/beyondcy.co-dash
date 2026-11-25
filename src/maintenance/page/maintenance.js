@@ -7,7 +7,11 @@
  *     site: 'Tracker' | 'Dashboard',
  *     endsAt,                 // ISO string | ms number | Date | null (null hides the countdown)
  *     state: 'counting',      // 'counting' | 'finishing' | 'back'
- *     logoSrc,                // URL of the Beyondcy logo (white/green wordmark)
+ *     logoSrc,                // URL of the site's own logo, made for dark backgrounds (the Tracker
+ *                             // passes the Beyondcy Tracker logo, the Dashboard the Beyondcy one)
+ *     logoAlt: 'Beyondcy',    // its text for screen readers
+ *     logoWidth: 993,         // the file's own width and height (only the proportion matters:
+ *     logoHeight: 209,        // it reserves the right space before the file has loaded)
  *     signIn: null,           // { href, onClick? } (Tracker only)
  *     onCountdownEnd() {},    // once per endsAt value, when the countdown reaches 00:00:00
  *   });
@@ -178,12 +182,15 @@ export function mountMaintenance(container, options) {
     }
     if (!logoImg) {
       logoImg = make(doc, 'img', 'bym-logo');
-      logoImg.alt = 'Beyondcy';
-      logoImg.width = 993;
-      logoImg.height = 209;
       logoImg.decoding = 'async';
       brand.appendChild(logoImg);
     }
+    const alt = typeof opts.logoAlt === 'string' && opts.logoAlt ? opts.logoAlt : 'Beyondcy';
+    const w = Number(opts.logoWidth) > 0 ? Math.round(Number(opts.logoWidth)) : 993;
+    const h = Number(opts.logoHeight) > 0 ? Math.round(Number(opts.logoHeight)) : 209;
+    if (logoImg.alt !== alt) logoImg.alt = alt;
+    if (logoImg.width !== w) logoImg.width = w;
+    if (logoImg.height !== h) logoImg.height = h;
     if (logoImg.getAttribute('src') !== src) logoImg.setAttribute('src', src);
   }
 
@@ -307,7 +314,7 @@ export function mountMaintenance(container, options) {
     opts = Object.assign({}, opts, partial);
     const has = (k) => Object.prototype.hasOwnProperty.call(partial, k);
     if (has('site')) renderSite();
-    if (has('logoSrc')) renderLogo();
+    if (has('logoSrc') || has('logoAlt') || has('logoWidth') || has('logoHeight')) renderLogo();
     if (has('signIn')) renderSignIn();
     if (has('state')) setState(opts.state);
     if (has('endsAt')) setEnds(opts.endsAt);

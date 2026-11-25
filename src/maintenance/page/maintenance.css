@@ -197,10 +197,11 @@
   min-width: 0;
 }
 
+/* the host may set --bym-logo-h / --bym-logo-h-sm for a logo that needs more height */
 .bym .bym-logo {
   display: block;
   width: auto;
-  height: 24px;
+  height: var(--bym-logo-h, 24px);
   max-width: none;
   margin: 0;
   border: 0;
@@ -424,7 +425,7 @@
   }
 
   .bym .bym-logo {
-    height: 22px;
+    height: var(--bym-logo-h-sm, 22px);
   }
 
   .bym-card {

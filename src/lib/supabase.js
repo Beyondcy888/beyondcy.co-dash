@@ -13,7 +13,8 @@ export const supabase = createClient(url, key, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
-    detectSessionInUrl: true, // needed for the password-reset link
+    // sign-in and password-reset links are handled by the login page in the portfolio (v6, file 05)
+    detectSessionInUrl: false,
     flowType: 'pkce',
   },
 });

@@ -4,7 +4,7 @@
 import { useEffect, useRef } from 'react';
 import { mountMaintenance } from './page/maintenance.js';
 import './page/maintenance.css';
-import { siteLink } from '../siteLinks.js';
+import { loginLink } from '../siteLinks.js';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -14,8 +14,8 @@ export function MaintenanceScreen({ endsAt = null, state = 'counting', signIn = 
   const page = useRef(null);
   const endRef = useRef(onCountdownEnd);
   endRef.current = onCountdownEnd;
-  // signed-out visitors: the tracker's login, coming back here afterwards
-  const signInOption = signIn ? { href: siteLink('track', 'login?next=dashboard') } : null;
+  // signed-out visitors: the login page (in the portfolio), coming back to this page afterwards
+  const signInOption = signIn ? { href: loginLink(typeof window !== 'undefined' ? window.location.href : '') } : null;
 
   useEffect(() => {
     page.current = mountMaintenance(ref.current, {

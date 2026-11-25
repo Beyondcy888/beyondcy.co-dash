@@ -1,12 +1,13 @@
 // Who may enter (update v5, file 01 §2). The dashboard has no login page of its own.
-//   not signed in                    → the tracker's login, ?next=dashboard
+//   not signed in                    → the login page in the portfolio (update v6, file 05), with
+//                                      ?next=<this exact page> to come back here afterwards
 //   an active stakeholder or admin   → the dashboard
 //   anyone else (staff, no role, inactive) → the tracker (which explains, e.g. "inactive")
 // A profile that failed to load gets "Try again", never a redirect (no ping-pong).
 import { useEffect } from 'react';
 import { useAuth } from './AuthContext.js';
 import { canUseDashboard } from '../lib/roles.js';
-import { siteLink } from '../siteLinks.js';
+import { loginLink, siteLink } from '../siteLinks.js';
 import { PageSkeleton } from '../layout/PageSkeleton.jsx';
 import { Notice } from '../layout/Notice.jsx';
 
@@ -35,7 +36,7 @@ export function AccessGate({ children }) {
   const { ready, session, profile, profileStatus, reloadProfile, signOut, leaving } = useAuth();
 
   if (!ready || leaving) return <PageSkeleton />;
-  if (!session) return <Leave to={siteLink('track', 'login?next=dashboard')} why="Signed out: the live dashboard opens the tracker's login page here." />;
+  if (!session) return <Leave to={loginLink(window.location.href)} why="Signed out: the live dashboard opens the login page (in the portfolio) here." />;
   if (profileStatus === 'idle' || profileStatus === 'loading') return <PageSkeleton />;
   if (profileStatus === 'error') {
     return (
